@@ -1,0 +1,19 @@
+# build/editor artifacts
+temp
+build
+cache
+/out
+/logs
+/editor
+
+# original game data
+src
+raw
+/audio/**/*.*
+!/audio/**/*.xml
+/image/**/*.*
+!/image/**/*.xml
+
+mod.cfg
+# modified game data (for multimedia which doesn't use src/patch directories)
+# (put overrides here, e.g. `!/sprite/npc/src/80` if you've changed bowser)
