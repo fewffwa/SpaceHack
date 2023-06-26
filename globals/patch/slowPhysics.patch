@@ -1,0 +1,28 @@
+#export:Function $SlowPhysics %use in a script by looping Call $SlowPhysics every frame it is to be used.
+{
+PUSH RA
+LIO t1, 8010EFC9
+ORI t0, r0, 4
+SB t0, 0000 (t1)
+LIO t3, 8010F07C
+LB t4, 0000 (t3)
+ORI t5, r0, 12
+NOP
+BNE t4, t5, .ishammering
+NOP
+SB r0, 0000 (t1)
+NOP
+.ishammering
+POP RA
+JR RA 
+ORI v0, r0, 2
+}
+
+#export:Function $NormalPhysics %call this once in a script with Call $NormalPhysics to return physics to normal
+{
+PUSH RA
+LIO t1, 8010EFC9
+SB r0, 0000 (t1)
+JR RA 
+ORI v0, r0, 2
+}

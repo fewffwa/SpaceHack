@@ -1,0 +1,26 @@
+#new:Data $DisableSpinBool { 1 }
+
+#export:Function $ScriptSetSpinBool {
+  ADDIU sp, sp, -18
+  SW ra, 0014 (sp)
+  LW a1, 000C (a0)
+  LW a1, 0000 (a1) %value to set
+  JAL 802C7ABC
+  NOP
+  SAW v0, $DisableSpinBool
+  LW ra, 0014 (sp)
+  ORI v0, r0, 2
+  JR RA
+  ADDIU sp, sp, 18
+}
+
+@Hook:Global 800E5BD8 {
+  LAW t0, $DisableSpinBool
+  BNE t0, r0, .cantSpin
+  NOP
+  JAL 800E6268 %check_input_spin
+  NOP
+  .cantSpin
+  J 800E5BE0
+  NOP
+}
