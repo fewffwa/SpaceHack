@@ -1,4 +1,4 @@
-#new:Data $DisableSpinBool { 1 }
+#new:Data $DisableSpinBool { 0 }
 
 #export:Function $ScriptSetSpinBool {
   ADDIU sp, sp, -18

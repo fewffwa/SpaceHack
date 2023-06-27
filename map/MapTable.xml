@@ -570,6 +570,7 @@
 	</Area>
 	<Area name="spc">
 		<Map name="spc_00" nickname="Test"/>
+		<Map name="spc_01"/>
 	</Area>
 	<Resource name="mac_tex" compressed="false"/>
 	<Resource name="tik_tex" compressed="false"/>

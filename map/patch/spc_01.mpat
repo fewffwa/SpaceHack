@@ -1,0 +1,33 @@
+#new:Script $DresserOpen
+{
+	CC:  Call  MakeLerp  ( 00000000 00000050 00000030 .Easing:CosInOut )
+	E8:  Label  0
+	F4:  Call  UpdateLerp ( )
+	100:  Call  RotateModel       ( ~Model:left_door *Var0 00000000 FFFFFFFF 00000000 )
+    100:  Call  RotateModel       ( ~Model:left_handle *Var0 00000000 FFFFFFFF 00000000 )
+	120:  Call  RotateModel       ( ~Model:right_door *Var0 00000000 00000001 00000000 
+    100:  Call  RotateModel       ( ~Model:right_handle *Var0 00000000 00000001 00000000 ))
+	140:  Wait  1`
+	14C:  If  *Var1  ==  00000001
+	15C:  	Goto  0
+	168:  EndIf
+    Call ModifyColliderFlags ( 0 ~Collider:Dressercollider 7FFFFE00 )
+	Return
+	End
+}
+
+@ $Script_Main
+{
+	Set   *GB_WorldLocation  .Location:TubbasManor
+	Call  SetCamPerspective  ( .Cam:Default 00000003 00000019 00000010 00001000 )
+	Call  SetCamBGColor      ( .Cam:Default 00000000 00000000 00000000 )
+	Call  SetCamEnabled      ( .Cam:Default .True
+	Call  SetCamLeadPlayer   ( .Cam:Default .False )
+	Exec  $Script_MakeEntities
+	Exec  $Script_SetupMusic
+	Exec  $Script_EnterMap 
+    Bind $DresserOpen .Trigger:WallPressA ~Collider:SplitCollider 00000001 00000000
+	Return
+	End
+}
+   
