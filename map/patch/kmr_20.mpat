@@ -1,0 +1,5 @@
+@ $Script_8024FD70 {
+Call GotoMap ( "spc_00" 2 )
+Return
+End
+}

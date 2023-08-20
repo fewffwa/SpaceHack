@@ -5,7 +5,7 @@
 	[MainScript] $Script_Main
 	[Background] 80200000
 	[EntryList] $EntryList
-	[EntryCount] B
+	[EntryCount] 3
 }
 
 #new:EntryList $EntryList
@@ -13,14 +13,6 @@
 	~Vec4f:Entry0
 	~Vec4f:Entry1
 	~Vec4f:Entry2
-	~Vec4f:Entry3
-	~Vec4f:Entry4
-	~Vec4f:Entry5
-	~Vec4f:Entry6
-	~Vec4f:Entry7
-	~Vec4f:Entry8
-	~Vec4f:Entry9
-	~Vec4f:EntryA
 }
 
 #new:Script $Script_TexturePan_Update
@@ -316,17 +308,8 @@
 
 #new:Script $Script_SetupTexturePan
 {
-	Call     802C9000 	( ~Model:o87 3 )
-	Call     802C9000 	( ~Model:o90 4 )
-	Call     802C9000 	( ~Model:o91 5 )
-	Call     802C9000 	( ~Model:o134 3 )
-	Call     802C9000 	( ~Model:o135 4 )
-	Call     802C9000 	( ~Model:o136 5 )
 	Call     802C9000 	( ~Model:o159 6 )
 	Call     802C9000 	( ~Model:o160 7 )
-	Call     802C9000 	( ~Model:o171 3 )
-	Call     802C9000 	( ~Model:o172 4 )
-	Call     802C9000 	( ~Model:o173 5 )
 	Call     802C9000 	( ~Model:o204 1 )
 	Call     802C9000 	( ~Model:o29 1 )
 	Thread
@@ -437,36 +420,17 @@
 		Exec $Script_CreateExitTriggers
 		Return
 	EndIf
-	Return
-	End
-}
-
-#new:Script $Script_Exit_Entry0
-{
-	SetGroup 0000001B
-	Call     UseExitHeading ( 60` ~Entry:Entry0 )
-	Exec     ExitWalk
-	Call  GotoMap   ( "hos_02" ~Entry:hos_02:Entry1 )
-	Wait  100`
-	Return
-	End
-}
-
-#new:Script $Script_Exit_Entry1
-{
-	SetGroup 0000001B
-	Call     UseExitHeading ( 60` ~Entry:Entry1 )
-	Exec     ExitWalk
-	Call  GotoMap   ( "hos_04" ~Entry:hos_04:Entry0 )
-	Wait  100`
+	Call  GetEntryID    ( *Var[0] )
+	Switch  *Var[0]
+		Default
+			Exec  $Script_CreateExitTriggers
+	EndSwitch
 	Return
 	End
 }
 
 #new:Script $Script_CreateExitTriggers
 {
-	Bind  $Script_Exit_Entry0 .Trigger:FloorAbove ~Collider:deilisw 00000001 00000000
-	Bind  $Script_Exit_Entry1 .Trigger:FloorAbove ~Collider:deilie 00000001 00000000
 	Return
 	End
 }

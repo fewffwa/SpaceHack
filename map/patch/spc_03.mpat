@@ -1,0 +1,347 @@
+#define .NpcID:GourmetGuy            00
+@ $Script_Main {
+    Set   *GB_WorldLocation  .Location:GoombaRoad
+    Call  SetCamPerspective  ( .Cam:Default 00000003 00000019 00000010 00001000 )
+    Call  SetCamBGColor      ( .Cam:Default 00000000 00000000 00000000 )
+    Call  SetCamEnabled      ( .Cam:Default .True
+    Call  SetCamLeadPlayer   ( .Cam:Default .False )
+    Exec  $Script_SetupMusic
+    Exec  $Script_EnterMap
+    Call MakeNpcs ( .True $NpcGroupList_8025136C )
+    Return
+    End
+}
+#new:NpcGroupList $NpcGroupList_8025136C
+{
+	00000001 $NpcGroup_8024E864 102C0000
+	00000000 00000000 00000000
+}
+
+#new:NpcGroup $NpcGroup_8024E864
+{
+	.NpcID:GourmetGuy   $NpcSettings_80247CE4 ~Vec3f:GourmetGuy % 100 0 -256
+	00002809 $Script_Init_8024D134 00000000 00000000 0000005A
+	~NoDrops
+	~Movement:GourmetGuy
+	~AnimationTable:GourmetGuy % .Sprite:Gooma
+	00000000 00000000 00000000 001A0064 % She's my grandma, Gooma. I hope she lives forever! ...
+
+
+}
+
+#new:NpcSettings $NpcSettings_80247CE4
+{
+	00000000 0044003C 00000000 00000000 00000000 00000000 00000000 00000000
+	00000000 00000000 00630000
+}
+
+#new:Script $Script_Init_8024D134
+{
+    0:  Call  BindNpcIdle       ( .Npc:Self $Script_Idle_8024CDAC )
+   14:  Call  BindNpcInteract   ( .Npc:Self $Script_Interact_8024CE80 )
+   28:  Return
+   30:  End
+}
+
+#new:Script $Script_Idle_8024CDAC
+{
+	Call SetNpcAnimation ( .NpcID:GourmetGuy 00C10001 )
+   C4:  Return
+   CC:  End
+}
+
+#new:Script $Script_Interact_8024CE80{
+    Switch *Flag_Question_Number
+    Case == 1
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ1 )
+	Call ShowChoice ( $Q1Choice )
+	Call CloseMessage ()
+	If *Var[0] == 3
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
+        Call GotoMap ( "gv_01" 0 )
+	EndIf
+    
+Case == 2
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ2 )
+	Call ShowChoice ( 001E0004 )
+	Call CloseMessage ()
+	If *Var[0] == 0
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect2 )
+    Call GotoMap ( "gv_01" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	EndIf
+	
+Case == 3
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ3 )
+	Call ShowChoice ( $Q3Choice )
+	Call CloseMessage ()
+	If *Var[0] == 1
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    	Add *Flag_Question_Number 1
+        Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
+        Call GotoMap ( "gv_01" 0 )
+	EndIf
+
+Case == 4
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ4 )
+	Call ShowChoice ( $Q4Choice )
+	Call CloseMessage ()
+	If *Var[0] == 2
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
+        Call GotoMap ( "gv_01" 0 )
+	EndIf
+	
+
+Case == 5
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ5 )
+	Call ShowChoice ( $Q5Choice )
+	Call CloseMessage ()
+	If *Var[0] == 0
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+	Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
+Call GotoMap ( "gv_01" 0 )
+	EndIf
+
+Case == 6
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ6 )
+	Call ShowChoice ( $Q6Choice )
+	Call CloseMessage ()
+	If *Var[0] == 2
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
+        Call GotoMap ( "gv_01" 0 )
+	EndIf
+Case == 7
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ7 )
+	Call ShowChoice ( $Q7Choice )
+	Call CloseMessage ()
+	If *Var[0] == 1
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect3 )
+        Call GotoMap ("gv_01" 0 )
+	EndIf
+	
+Case == 8
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ8 )
+	Call ShowChoice ( $Q8Choice )
+	Call CloseMessage ()
+	If *Var[0] == 1
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
+    Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect4 )
+        Call GotoMap ( "gv_01" 0 )
+
+	EndIf
+
+Case == 9
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ9 )
+	Call ShowChoice ( $Q9Choice )
+	Call CloseMessage ()
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect2 )
+	Add *Flag_Question_Number 1
+    Call GotoMap ( "spc_03" 0 )
+    EndSwitch
+    Return
+    End
+}
+
+#new:String $GourmetGuyQ1
+{
+	[Style Right]Question 1: [br][wait][next]
+    What is ((4 * 5)10)^0 ?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ2
+{
+	[Style Right]Question 2: [br][wait][next]
+    Are you enjoying this[br]
+    so far?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ3
+{
+	[Style Right]Question 3: [br][wait][next]
+    How many bushes are[br]
+    in this room?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ4
+{
+	[Style Right]Question 4: [br][wait][next]
+    True or false:[br]
+    This sentence is false.[br][yield][end]
+}
+
+#new:String $GourmetGuyQ5
+{
+	[Style Right]Question 5: [br][wait][next]
+    What number am I[br]
+    Thinking of?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ6
+{
+	[Style Right]Question ?:[br][wait][next]
+    What number question[br]
+    is this?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ7
+{
+	[Style Right]Question 7:[br][wait][next]
+    Who else's jam hack[br]
+    am I in?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ8
+{
+	[Style Right]Question 8:[br][wait][next]
+    Which is healthier?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ9
+{
+	[Style Right]Question 9:[br][wait][next]
+    How many questions do[br]
+    you think are left?[br][yield][end]
+}
+
+#new:String $GourmetGuyCorrect
+{
+	[Style Right]Correct! Let's move on![wait][end]
+}
+
+#new:String $GourmetGuyCorrect2
+{
+	[Style Right]Well, I asked what you[br]
+    THOUGHT, not what the answer was[br]
+    so... correct!!![wait][end]
+}
+
+#new:String $GourmetGuyIncorrect
+{
+[Style Right]That is Incorrect. Goodbye.[wait][end]}
+
+#new:String $GourmetGuyIncorrect2
+{
+[Style Right]Wrong! Nobody likes math you nerd.[br]
+ Goodbye.[wait][end]}
+
+ #new:String $GourmetGuyIncorrect3
+ {
+ [Style Right]That is incorrect...[br]
+  as far as I know. I[br]
+don't know i didn't play them all.[wait][end]}
+
+#new:String $GourmetGuyIncorrect4
+{
+[Style Right]Wrong![br]
+ Shroom cake restores more health idiot[br]
+[wait][end]}
+ 
+
+#new:String $Q1Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]5[BR]
+	[Option 1]20[BR]
+	[Option 2]5096[BR]
+	[Option 3]1[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q3Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]0[BR]
+	[Option 1]1[BR]
+	[Option 2]2[BR]
+	[Option 3]3[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q4Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]True[BR]
+	[Option 1]False[BR]
+	[Option 2][BR]
+	[EndChoice][End]
+}
+
+#new:String $Q5Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]200[BR]
+	[Option 1]50[BR]
+	[Option 2]1[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q6Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]4[BR]
+	[Option 1]5[BR]
+	[Option 2]6[BR]
+    [Option 3]7[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q7Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]Wrymouth[BR]
+	[Option 1]Den[BR]
+	[Option 2]Miigle[BR]
+    [Option 3]Nine[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q8Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]Potato Salad[BR]
+	[Option 1]Shroom Cake[BR]
+	[EndChoice][End]
+}
+
+#new:String $Q9Choice
+{
+	[Style Choice pos=105,60 size=100,76]
+	[StartChoice]
+	[Option 0]Potato Salad[BR]
+	[Option 1]Shroom Cake[BR]
+	[EndChoice][End]
+}

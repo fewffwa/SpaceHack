@@ -1,3 +1,5 @@
+#define .NpcID:GourmetGuy            00
+
 @ $Script_Main
 {
     Set   *GB_WorldLocation  .Location:StarHaven
@@ -9,8 +11,7 @@
 	Exec  $Script_SetupMusic
 	Exec  $Script_SetupTexturePan
 	Exec  $Script_EnterMap
-    Call $ScriptSetSpinBool ( 1 )
-	Exec $SpacePhysics
+	Call  MakeNpcs  ( .True $NpcGroupList_8025136C )
 	Return
 	End
 }
@@ -24,3 +25,79 @@ EndLoop
 Return
 End
 }
+
+#new:NpcGroupList $NpcGroupList_8025136C
+{
+	00000001 $NpcGroup_8024E864 102C0000
+	00000000 00000000 00000000
+}
+
+#new:NpcGroup $NpcGroup_8024E864
+{
+	.NpcID:GourmetGuy   $NpcSettings_80247CE4 ~Vec3f:GourmetGuy % 100 0 -256
+	00002809 $Script_Init_8024D134 00000000 00000000 0000005A
+	~NoDrops
+	~Movement:GourmetGuy
+	~AnimationTable:GourmetGuy % .Sprite:Gooma
+	00000000 00000000 00000000 001A0064 % She's my grandma, Gooma. I hope she lives forever! ...
+
+
+}
+
+#new:NpcSettings $NpcSettings_80247CE4
+{
+	00000000 0044003C 00000000 00000000 00000000 00000000 00000000 00000000
+	00000000 00000000 00630000
+}
+
+#new:Script $Script_Init_8024D134
+{
+    0:  Call  BindNpcIdle       ( .Npc:Self $Script_Idle_8024CDAC )
+   14:  Call  BindNpcInteract   ( .Npc:Self $Script_Interact_8024CE80 )
+   28:  Return
+   30:  End
+}
+
+#new:Script $Script_Idle_8024CDAC
+{
+	Call SetNpcAnimation ( .NpcID:GourmetGuy 00C10001 )
+   C4:  Return
+   CC:  End
+}
+
+#new:Script $Script_Interact_8024CE80{
+	Call SetMusicTrack ( 0 .Song:SunTowerSunny 0 8 )
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyString )
+	Call ShowChoice ( 001E0004 )
+	Call CloseMessage ()
+	If *Var[0] == 0
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyYes )
+	Else
+		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyNo )
+
+	EndIf
+	Set *Flag_Question_Number 1
+Call GotoMap ( "spc_03" 0 )
+	Return
+	End
+}
+
+#new:String $GourmetGuyString
+{
+	[Style Right]Hello and welcome to the [br]
+	only-ual 1000000 Iq Cosmic-Brain[br]
+	quiz![br][wait][next]
+	I'm your host[pause 3].[pause 3].[pause 3].[pause 3] Gourmet Guy!!![br][wait][next]
+	Answer these 10 questions[br]
+	correctly, and you get the[br]
+	grand prize!!![br][wait][next]
+	Are you ready?[br][yield][end]
+}
+
+#new:String $GourmetGuyYes
+{
+	[Style Right]Alright, let's get going![wait][end]
+}
+#new:String $GourmetGuyNo
+{
+[Style Right]That's on you, buddy. Let's go.[wait][end]}
