@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="spc_03" author="unnamed" background="hos_bg" textures="hos_tex">
 	<Editor>
-		<Camera pos="-20.619749,92.671745,283.388824" pitch="17.200026" yaw="0.800126"/>
-		<Camera pos="-108.000000,65536.000000,195.000000"/>
-		<Camera pos="65536.000000,8.000000,195.000000"/>
-		<Camera pos="-108.000000,8.000000,65536.000000"/>
+		<Camera pos="-39.813805,116.468567,443.932861" pitch="10.000000" yaw="0.000000"/>
+		<Camera pos="-1.559296,65536.000000,-32.676937"/>
+		<Camera pos="65536.000000,-657.037292,320.366821"/>
+		<Camera pos="-61.500378,-99.221794,65536.000000"/>
 	</Editor>
 	<ModelTree>
 		<Node name="Root" id="9">
@@ -21,7 +21,7 @@
 		</Node>
 	</ModelTree>
 	<ColliderTree>
-		<Node name="Root" id="F">
+		<Node name="Root" id="13">
 			<Node name="Stage" id="2">
 				<Node name="main_floor" id="0"/>
 				<Node name="main_walls" id="1"/>
@@ -40,6 +40,10 @@
 			</Node>
 			<Node name="RealBushCollider" id="D"/>
 			<Node name="BushPersonCollider" id="E"/>
+			<Node name="Planar GridCollider" id="F"/>
+			<Node name="Planar GridCollider" id="10"/>
+			<Node name="Planar GridCollider" id="11"/>
+			<Node name="LecternCollider" id="12"/>
 		</Node>
 	</ColliderTree>
 	<ZoneTree>
@@ -52,11 +56,12 @@
 		</Node>
 	</ZoneTree>
 	<MarkerTree>
-		<Node name="Root" id="2">
+		<Node name="Root" id="3">
 			<Node name="Entrances" id="0">
 				<Node name="entry_n" id="FFFFFFFF"/>
 			</Node>
 			<Node name="GourmetGuy" id="1"/>
+			<Node name="Marker" id="2"/>
 		</Node>
 	</MarkerTree>
 	<LightSets>
@@ -257,8 +262,84 @@
 	</Models>
 	<Colliders>
 		<Collider ver="0" flags="0">
-			<MapObject name="Root" id="F"/>
+			<MapObject name="Root" id="13"/>
 			<HitObject type="ROOT"/>
+		</Collider>
+		<Collider ver="0" flags="0">
+			<MapObject name="LecternCollider" id="12"/>
+			<HitObject type="HIT"/>
+			<HitMesh ver="0">
+				<TriangleBatch ver="0">
+					<VertexTable>
+						<Vertex xyz="-86,29,-1" uv="-512,512"/>
+						<Vertex xyz="-62,-29,0" uv="512,-512"/>
+						<Vertex xyz="-86,-29,0" uv="-512,-512"/>
+						<Vertex xyz="-62,29,-1" uv="512,512"/>
+					</VertexTable>
+					<TriangleList>
+						<Triangle ijk="0,1,2" doubleSided="true"/>
+						<Triangle ijk="1,0,3" doubleSided="true"/>
+					</TriangleList>
+				</TriangleBatch>
+			</HitMesh>
+		</Collider>
+		<Collider ver="0" flags="0">
+			<MapObject name="Planar GridCollider" id="11"/>
+			<HitObject type="HIT"/>
+			<HitMesh ver="0">
+				<TriangleBatch ver="0">
+					<VertexTable>
+						<Vertex xyz="-126,160,72" uv="-512,512"/>
+						<Vertex xyz="-125,0,-88" uv="512,-512"/>
+						<Vertex xyz="-126,160,-88" uv="-512,-512"/>
+						<Vertex xyz="-125,0,-88" uv="512,-512"/>
+						<Vertex xyz="-126,160,72" uv="-512,512"/>
+						<Vertex xyz="-125,0,72" uv="512,512"/>
+					</VertexTable>
+					<TriangleList>
+						<Triangle ijk="0,1,2" doubleSided="true"/>
+						<Triangle ijk="3,4,5" doubleSided="true"/>
+					</TriangleList>
+				</TriangleBatch>
+			</HitMesh>
+		</Collider>
+		<Collider ver="0" flags="0">
+			<MapObject name="Planar GridCollider" id="10"/>
+			<HitObject type="HIT"/>
+			<HitMesh ver="0">
+				<TriangleBatch ver="0">
+					<VertexTable>
+						<Vertex xyz="134,159,-91" uv="-512,512"/>
+						<Vertex xyz="-130,-1,-92" uv="512,-512"/>
+						<Vertex xyz="-130,159,-91" uv="-512,-512"/>
+						<Vertex xyz="-130,-1,-92" uv="512,-512"/>
+						<Vertex xyz="134,159,-91" uv="-512,512"/>
+						<Vertex xyz="134,-1,-92" uv="512,512"/>
+					</VertexTable>
+					<TriangleList>
+						<Triangle ijk="0,1,2" doubleSided="true"/>
+						<Triangle ijk="3,4,5" doubleSided="true"/>
+					</TriangleList>
+				</TriangleBatch>
+			</HitMesh>
+		</Collider>
+		<Collider ver="0" flags="0">
+			<MapObject name="Planar GridCollider" id="F"/>
+			<HitObject type="HIT"/>
+			<HitMesh ver="0">
+				<TriangleBatch ver="0">
+					<VertexTable>
+						<Vertex xyz="128,160,72" uv="-512,512"/>
+						<Vertex xyz="129,0,-88" uv="512,-512"/>
+						<Vertex xyz="128,160,-88" uv="-512,-512"/>
+						<Vertex xyz="129,0,72" uv="512,512"/>
+					</VertexTable>
+					<TriangleList>
+						<Triangle ijk="0,1,2" doubleSided="true"/>
+						<Triangle ijk="1,0,3" doubleSided="true"/>
+					</TriangleList>
+				</TriangleBatch>
+			</HitMesh>
 		</Collider>
 		<Collider ver="0" flags="0">
 			<MapObject name="BushPersonCollider" id="E" hidden="true"/>
@@ -728,9 +809,12 @@
 	</Zones>
 	<Markers>
 		<Marker ver="4" type="Root">
-			<MapObject name="Root" id="2"/>
+			<MapObject name="Root" id="3"/>
 		</Marker>
-		<Marker ver="4" type="NPC" pos="-4,0,59" yaw="0.000000">
+		<Marker ver="4" type="Position" pos="-74,0,-18" yaw="0.000000">
+			<MapObject name="Marker" id="2"/>
+		</Marker>
+		<Marker ver="4" type="NPC" pos="73,0,-5" yaw="0.000000">
 			<MapObject name="GourmetGuy" id="1"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite sprite="C1" palette="0" animations="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
