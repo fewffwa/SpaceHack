@@ -7,13 +7,16 @@
     Call  SetCamLeadPlayer   ( .Cam:Default .False )
     Exec  $Script_SetupMusic
     Exec  $Script_EnterMap
+	If *Flag_Question_Number == 3
+	Bind $BushPersonScript .Trigger:WallPressA ~Collider:BushPersonCollider 0 1
+	EndIf
     Call MakeNpcs ( .True $NpcGroupList_8025136C )
     Return
     End
 }
 #new:NpcGroupList $NpcGroupList_8025136C
 {
-	00000001 $NpcGroup_8024E864 102C0000
+	00000001 $NpcGroup_8024E864 23040000
 	00000000 00000000 00000000
 }
 
@@ -39,6 +42,13 @@
 {
     0:  Call  BindNpcIdle       ( .Npc:Self $Script_Idle_8024CDAC )
    14:  Call  BindNpcInteract   ( .Npc:Self $Script_Interact_8024CE80 )
+   28:  Return
+   30:  End
+}
+
+#new:Script $BushPersonScript
+{
+	Call SpeakToPlayer ( .Npc:Player 0 0 0 $String_BushPerson )
    28:  Return
    30:  End
 }
@@ -164,82 +174,120 @@ Case == 9
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect2 )
 	Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
-    EndSwitch
+
+Case == 10`
+	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ10 )
+	Call SetBattleMusic ( .Song:FinalBowserBattle )
+	Call $Func_SetupStats
+	Call AddItem ( .Item:Pebble 3 )
+	Call AddItem ( .Item:SnowmanDoll 0 )
+	Call AddItem ( .Item:ThunderRage 1 )
+	Call AddItem ( .Item:DustyHammer 2 )
+	Call AddItem ( .Item:FrightJar 4 )
+	Call AddItem ( .Item:EggMissile 4 )
+	Call EnablePartner ( .Partner:Goombario )
+    Call StartBossBattle ( .Song:FinalBowserBattle )
+	Wait 120`
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward )
+	Call GotoMap ( "kmr_30" 0 )
+	EndSwitch
     Return
     End
 }
 
 #new:String $GourmetGuyQ1
 {
-	[Style Right]Question 1: [br][wait][next]
-    What is ((4 * 5)10)^0 ?[br][yield][end]
+[Style Right]Question 1: [br][wait][next]
+What is ((4 * 5)10)^0 ?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ2
 {
-	[Style Right]Question 2: [br][wait][next]
-    Are you enjoying this[br]
-    so far?[br][yield][end]
+[Style Right]Question 2: [br][wait][next]
+Are you enjoying this[br]
+so far?[br][yield][end]
+}
+
+#new:String $String_BushPerson
+{
+[Style Right]I may look like a bush, but [br]
+in fact, I'm a bush-shaped[br]
+person![br][wait][end]
 }
 
 #new:String $GourmetGuyQ3
 {
-	[Style Right]Question 3: [br][wait][next]
-    How many bushes are[br]
-    in this room?[br][yield][end]
+[Style Right]Question 3: [br][wait][next]
+How many bushes are[br]
+in this room?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ4
 {
-	[Style Right]Question 4: [br][wait][next]
-    True or false:[br]
-    This sentence is false.[br][yield][end]
+[Style Right]Question 4: [br][wait][next]
+True or false:[br]
+This sentence is false.[br][yield][end]
 }
 
 #new:String $GourmetGuyQ5
 {
-	[Style Right]Question 5: [br][wait][next]
-    What number am I[br]
-    Thinking of?[br][yield][end]
+[Style Right]Question 5: [br][wait][next]
+What number am I[br]
+Thinking of?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ6
 {
-	[Style Right]Question ?:[br][wait][next]
-    What number question[br]
-    is this?[br][yield][end]
+[Style Right]Question ?:[br][wait][next]
+What number question[br]
+is this?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ7
 {
-	[Style Right]Question 7:[br][wait][next]
-    Who else's jam hack[br]
-    am I in?[br][yield][end]
+[Style Right]Question 7:[br][wait][next]
+Who else's jam hack[br]
+am I in?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ8
 {
-	[Style Right]Question 8:[br][wait][next]
-    Which is healthier?[br][yield][end]
+[Style Right]Question 8:[br][wait][next]
+Which is healthier?[br][yield][end]
 }
 
 #new:String $GourmetGuyQ9
 {
-	[Style Right]Question 9:[br][wait][next]
-    How many questions do[br]
-    you think are left?[br][yield][end]
+[Style Right]Question 9:[br][wait][next]
+How many questions do[br]
+ you think are left?[br][yield][end]
+}
+
+#new:String $GourmetGuyQ10
+{
+[Style Right]Question 10:[br][wait][next]
+How do real men[br]
+beat bowser?[br][Wait][end]
+}
+
+#new:String $GourmetGuyReward
+{
+[Style Right]Oh... you won...[br][wait][next]
+What's your reward? [br]
+I guess I'll send you home[br]
+and not kill you...[Wait][end]
 }
 
 #new:String $GourmetGuyCorrect
 {
-	[Style Right]Correct! Let's move on![wait][end]
+[Style Right]Correct! Let's move on![wait][end]
 }
 
 #new:String $GourmetGuyCorrect2
 {
-	[Style Right]Well, I asked what you[br]
-    THOUGHT, not what the answer was[br]
-    so... correct!!![wait][end]
+[Style Right]Well, I asked what you[br]
+THOUGHT, not what the answer was[br]
+so... correct!!![wait][end]
 }
 
 #new:String $GourmetGuyIncorrect
@@ -249,18 +297,20 @@ Case == 9
 #new:String $GourmetGuyIncorrect2
 {
 [Style Right]Wrong! Nobody likes math you nerd.[br]
- Goodbye.[wait][end]}
+Goodbye.[wait][end]}
 
  #new:String $GourmetGuyIncorrect3
  {
  [Style Right]That is incorrect...[br]
-  as far as I know. I[br]
-don't know i didn't play them all.[wait][end]}
+as far as I know. I[br]
+don't know i didn't play [br]
+them all.[wait][end]}
 
 #new:String $GourmetGuyIncorrect4
 {
 [Style Right]Wrong![br]
- Shroom cake restores more health idiot[br]
+Shroom cake restores more health [br]
+idiot[br]
 [wait][end]}
  
 
@@ -288,7 +338,7 @@ don't know i didn't play them all.[wait][end]}
 
 #new:String $Q4Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=100,46]
 	[StartChoice]
 	[Option 0]True[BR]
 	[Option 1]False[BR]
@@ -298,7 +348,7 @@ don't know i didn't play them all.[wait][end]}
 
 #new:String $Q5Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=100,62]
 	[StartChoice]
 	[Option 0]200[BR]
 	[Option 1]50[BR]
@@ -308,29 +358,27 @@ don't know i didn't play them all.[wait][end]}
 
 #new:String $Q6Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=100,62]
 	[StartChoice]
 	[Option 0]4[BR]
 	[Option 1]5[BR]
 	[Option 2]6[BR]
-    [Option 3]7[BR]
 	[EndChoice][End]
 }
 
 #new:String $Q7Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=100,62]
 	[StartChoice]
 	[Option 0]Wrymouth[BR]
 	[Option 1]Den[BR]
 	[Option 2]Miigle[BR]
-    [Option 3]Nine[BR]
 	[EndChoice][End]
 }
 
 #new:String $Q8Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=130,50]
 	[StartChoice]
 	[Option 0]Potato Salad[BR]
 	[Option 1]Shroom Cake[BR]
@@ -339,9 +387,65 @@ don't know i didn't play them all.[wait][end]}
 
 #new:String $Q9Choice
 {
-	[Style Choice pos=105,60 size=100,76]
+	[Style Choice pos=105,60 size=100,62]
 	[StartChoice]
-	[Option 0]Potato Salad[BR]
-	[Option 1]Shroom Cake[BR]
+	[Option 0]5[BR]
+	[Option 1]20[BR]
+	[Option 2]1[BR]
 	[EndChoice][End]
 }
+
+#new:Function $Func_SetupStats{
+	LIO t0, 8010F290 
+	ORI t1, r0, 01 
+	ORI t2, r0, 02
+	ORI t3, r0, F4
+	ORI t4, r0, 14
+	ORI t5, r0, 28
+	ORI t6, r0, 15
+	ORI t7, r0, 7
+	
+	SB t1, 001C (t0)
+	SB t2, 001D (t0) %goombario
+	
+	SB t1, 0024 (t0) 
+	SB t2, 0025 (t0) %kooper
+	
+	SB t1, 002C (t0)
+	SB t2, 002D (t0) %bombette
+	
+	SB t1, 0034 (t0) 
+	SB t2, 0035 (t0) %parakarry
+	
+	SB t1, 0044 (t0) 
+	SB t2, 0045 (t0) %watt
+	
+	SB t1, 004C (t0) 
+	SB t2, 004D (t0) %sushie
+	
+	SB t1, 0054 (t0) 
+	SB t2, 0055 (t0) %lakilester
+	
+	SB t1, 005C (t0) 
+	SB t2, 005D (t0) %bow
+	
+	
+	SB t1 000A (t0) %Give mario action Commands
+	
+	SB t2 0000 (t0) %ultra boots
+	
+	SB t2 0001 (t0) %ultra Hammer
+	
+	SB t1 000C (t0) 
+	SB t3 000D (t0) %500 coins
+	
+	SB t4 0009 (t0) %Level 20
+	SB t7 0290 (t0) 
+	SB t7 028E (t0) %star power
+	
+	
+	
+	
+	JR RA
+	ORI v0, r0, 2
+	 }

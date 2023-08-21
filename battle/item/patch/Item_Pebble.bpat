@@ -1,0 +1,46 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000085
+    ExecWait  $Script_802A1240
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver     (  15` )
+    Call  SetAnimation  ( .Actor:Player 00000000 00010016 )
+    Call  PlaySound ( 000003FA )
+    Wait  3`
+    Call  CreateVirtualEntity   ( *VarA $EntityModelScript_802A1B50 )
+    SetF  *Var0  *Fixed[1.0]
+    Call  MultiplyByActorScale  ( *Var0 )
+    Call  SetVirtualEntityScale ( *VarA *Var0 *Var0 *Var0 )
+    Call  GetActorPos   ( .Actor:Player *Var0 *Var1 *Var2 )
+    Set   *Var3  00000014
+    Set   *Var4  0000002A
+    Set   *Var5  00000005
+    Call  MultiplyVec3ByActorScale  ( *Var3 *Var4 *Var5 )
+    Add   *Var0  *Var3
+    Add   *Var1  *Var4
+    Add   *Var2  *Var5
+    Call  SetVirtualEntityPosition  ( *VarA *Var0 *Var1 *Var2 )
+    Call  InitTargetIterator ( )
+    Call  SetGoalToTarget       ( .Actor:Self )
+    Call  GetGoalPos    ( .Actor:Self *Var0 *Var1 *Var2 )
+    Thread
+        Set   *Var0  00000000
+        Loop  00000012
+            Add   *Var0  FFFFFFC4
+            Call  SetVirtualEntityRotation  ( *VarA 00000000 00000000 *Var0 )
+            Wait  1`
+        EndLoop
+    EndThread
+    Call  SetVirtualEntityJumpGravity   ( *VarA *Fixed[0.8] )
+    Add   *Var2  00000005
+    Call  VirtualEntityJumpTo   ( *VarA *Var0 *Var1 *Var2  18` )
+    Call  GetItemPower  ( .Item:Pebble *Var3 *Var4 )
+    Call  ApplyShrinkFromOwner  ( *Var3 )
+    Call  ItemDamageEnemy       ( *Var9 ~Flags:DamageType:IgnoreDefense|NoContact 00000000 1 00000020 )
+    Add   *Var0  0000003C
+    Add   *Var1  00000000
+    Call  VirtualEntityJumpTo   ( *VarA *Var0 *Var1 *Var2  16` )
+    Call  DeleteVirtualEntity   ( *VarA )
+    ExecWait  $Script_802A1670
+    Return
+    End
+}

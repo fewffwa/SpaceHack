@@ -1,0 +1,44 @@
+@ $Script_UseItem {
+    SetConst  *VarA  000000C8
+    ExecWait  $Script_802A1310
+    Call  UseBattleCamPreset        ( 00000003 )
+    Call  MoveBattleCamOver (  15` )
+    Call  SetAnimation      ( .Actor:Player 00000000 00010016 )
+    Call  PlaySound ( 000003FA )
+    Wait  3`
+    Call  CreateVirtualEntity       ( *VarA $EntityModelScript_802A2550 )
+    Call  GetActorPos       ( .Actor:Player *Var0 *Var1 *Var2 )
+    Add   *Var0  00000014
+    Add   *Var1  0000002A
+    Add   *Var2  00000005
+    Call  SetVirtualEntityPosition  ( *VarA *Var0 *Var1 *Var2 )
+    Call  InitTargetIterator ( )
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  GetGoalPos        ( .Actor:Self *Var0 *Var1 *Var2 )
+    Thread
+        Set   *Var0  00000000
+        Loop  00000012
+            Add   *Var0  0000003C
+            Call  SetVirtualEntityRotation  ( *VarA 00000000 00000000 *Var0 )
+            Wait  1`
+        EndLoop
+    EndThread
+    Call  SetVirtualEntityJumpGravity   ( *VarA *Fixed[1.0] )
+    Add   *Var2  00000005
+    Call  VirtualEntityJumpTo   ( *VarA *Var0 *Var1 *Var2  18` )
+    Call  DeleteVirtualEntity   ( *VarA )
+    Call  PlaySound ( 00002010 )
+    Call  $Function_802A123C    ( *Var0 *Var1 *Var2 )
+    Thread
+        Call  StartRumble   ( 00000005 )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[0.75] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  5` *Fixed[1.5] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  4` *Fixed[1.2] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[0.45] )
+    EndThread
+    Call  GetItemPower      ( .Item:EggMissile *Var0 *Var1 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|Fire|Blast 00000000 *Var0 00000020 )
+    ExecWait  $Script_802A1740
+    Return
+    End
+}

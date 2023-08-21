@@ -1,0 +1,76 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000090
+    ExecWait  $Script_802A13A0
+    Wait  10`
+    Call  MakeEntity    ( .Entity:PowBlock FFFFFFD8 0000003C 00000000 00000000 80000000 )
+    Set   *VarA  *Var0
+    Call  $Function_802A1318 ( )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFE2 00000041 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 00000037 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    Wait  20`
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver     (  20` )
+    Thread
+        Wait  15`
+        Call  PlaySoundAtActor  ( .Actor:Player .Sound:HitBlock )
+        Call  $Function_802A123C ( )
+        Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFE2 00000041 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFD8 00000037 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  StartRumble   ( 00000004 )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[1.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[3.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[6.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[5.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[4.0] )
+        Call  PlaySoundAtActor  ( .Actor:Player 00002030 )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[3.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[2.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[1.0] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[0.5] )
+        Call  ShakeCam  ( .Cam:Battle 00000000  2` *Fixed[0.2] )
+    EndThread
+    Call  GetActorPos   ( .Actor:Player *Var0 *Var1 *Var2 )
+    Add   *Var0  0000001E
+    Call  SetActorSpeed ( .Actor:Player *Fixed[4.0] )
+    Call  SetAnimation  ( .Actor:Player 00000000 00010005 )
+    Call  SetGoalPos    ( .Actor:Player *Var0 *Var1 *Var2 )
+    Call  PlayerRunToGoal   ( 00000000 )
+    Wait  5`
+    Call  SetJumpAnimations ( .Actor:Player 00000000 00010007 00010008 00010009 )
+    Call  SetActorJumpGravity   ( .Actor:Player *Fixed[0.6] )
+    Call  SetGoalPos    ( .Actor:Player *Var0 *Var1 *Var2 )
+    Call  80273444      ( 00000014 00000000 00000000 )
+    Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver (  20` )
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit  ( *Var0 ~Flags:DamageType:NoContact 00000000 *Var0 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  GetItemPower      ( .Item:POWBlock *Var3 *Var4 )
+    Call  ApplyShrinkFromOwner  ( *Var3 )
+    Call  80269EAC  ( 00000016 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|POW 00000000 *Var3 00000020 )
+    Label  1
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFBA 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFC4 00000041 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFBA 0000003C 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlayEffect    ( ~FX:Steam:Ring FFFFFFBA 00000037 00000014 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  $Function_802A12E4 ( )
+    Wait  30`
+    ExecWait  $Script_802A17D0
+    Return
+    End
+}

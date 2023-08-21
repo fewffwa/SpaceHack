@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="spc_00" author="unnamed" background="hos_bg" textures="hos_tex">
 	<Editor>
-		<Camera pos="-104.268021,140.136490,580.804688" pitch="46.159996" yaw="348.960175"/>
+		<Camera pos="-322.503601,422.022888,35.731998" pitch="23.759987" yaw="301.920013"/>
 		<Camera pos="-149.011795,65536.000000,141.241974"/>
 		<Camera pos="65536.000000,180.175293,114.352875"/>
 		<Camera pos="365.205872,22.889357,65536.000000"/>
@@ -10937,7 +10937,7 @@
 		<Marker ver="4" type="Group">
 			<MapObject name="NPCs" id="4"/>
 		</Marker>
-		<Marker ver="4" type="NPC" pos="-485,335,-100" yaw="270.000000">
+		<Marker ver="4" type="NPC" pos="-482,326,-100" yaw="270.000000">
 			<MapObject name="GourmetGuy" id="3"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite sprite="C1" palette="0" animations="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>

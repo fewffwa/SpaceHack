@@ -1,0 +1,63 @@
+@ $Script_UsePower {
+    ExecWait  $Script_802A16F0
+    SetConst  *Var0  001B0001
+    ExecWait  $Script_802A1E20
+    Call  SetNpcAnimation       ( 00000064 001B0002 )
+    Wait  16`
+    Call  UseBattleCamPreset    ( 00000003 )
+    Thread
+        Set   *Var0  00000000
+        Loop  0000000A
+            Call  PlaySound ( 00000259 )
+            Call  $Function_802A1518 ( )
+            Wait  5`
+            Add   *Var0  00000001
+            Call  PlaySound ( 0000025A )
+            Call  $Function_802A1518 ( )
+            Wait  5`
+            Add   *Var0  00000001
+        EndLoop
+    EndThread
+    Thread
+        Set   *Var0  00000000
+        Wait  50`
+        Loop  0000000A
+            Call  PlaySound ( 0000025C )
+            Add   *Var0  00000001
+            Wait  5`
+            Call  PlaySound ( 0000025D )
+            Add   *Var0  00000001
+            Wait  5`
+        EndLoop
+    EndThread
+    Thread
+        Loop  0000000A
+            Wait  7`
+            Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+            Call  StartRumble   ( 00000008 )
+        EndLoop
+    EndThread
+    Wait  90`
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit      ( *Var0 ~Flags:DamageType:0 00000000 00000000 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  GetGoalPos        ( .Actor:Self *Var0 *Var1 *Var2 )
+    Call  $Function_802A1628    ( *Var0 *Var1 *Var2 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|Cosmic 00000000 00000007 00000020 )
+    Label  1
+    Wait  10`
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Wait  20`
+    ExecWait  $Script_802A202C
+    Call  80276EFC ( )
+    ExecWait  $Script_802A247C
+    Return
+    End
+}

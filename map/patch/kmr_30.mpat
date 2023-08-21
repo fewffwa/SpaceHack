@@ -1,0 +1,17 @@
+@ $Script_Main {
+  Set   *GB_WorldLocation  .Location:MariosHouse
+  Call  SetSpriteShading  ( .Shading:kmr_30 )
+  Call  SetCamPerspective ( .Cam:Default 00000003  25`  16`  4096` )
+  Call  SetCamBGColor     ( .Cam:Default  0`  0`  0` )
+  Call  SetCamEnabled     ( .Cam:Default .True )
+  Call  SetCamLeadPlayer  ( .Cam:Default .False )
+  Call  EnableStatusMenu  ( .False )
+  Thread
+      Call  FadeOutMusic  ( 00000000 00001388 )
+      Wait  390`
+      Call  SetMusicTrack ( 00000000 .Song:TheEnd 00000000 00000008 )
+  EndThread
+  Exec  $Script_80240C10
+  Return
+  End
+}

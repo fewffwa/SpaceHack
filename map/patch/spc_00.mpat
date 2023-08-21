@@ -101,3 +101,34 @@ Call GotoMap ( "spc_03" 0 )
 #new:String $GourmetGuyNo
 {
 [Style Right]That's on you, buddy. Let's go.[wait][end]}
+
+#new:Script $MarioWakeUp
+{
+	Call DisablePlayerInput ( .True )
+	Call DisablePlayerPhysics ( .True )
+    Call SetPlayerAnimation ( 0000010F )
+	Call ShowMessageAtScreenPos ( $MarioWakeUpString 160` 40` )
+	Call DisablePlayerInput ( .False)
+	Call DisablePlayerPhysics ( .False )
+	Return
+	End
+}
+@ $Script_EnterMap {
+	Call  GetLoadType   ( *Var[0] )
+	If  *Var[0]  ==  1
+		Exec  EnterSavePoint
+		Exec $Script_CreateExitTriggers
+		Return
+	EndIf
+	Call  GetEntryID    ( *Var[0] )
+	Switch  *Var[0]
+		Default
+			Exec $MarioWakeUp
+	EndSwitch
+	Return
+	End
+}
+
+#new:String $MarioWakeUpString
+{
+[Style Narrate]You wake up in a familiar[br]looking area...[wait][end]}

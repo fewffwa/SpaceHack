@@ -1,0 +1,40 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000082
+    ExecWait  $Script_802A14A0
+    ChildThread
+        Wait  5`
+        Call  UseBattleCamPreset    ( 00000002 )
+        Call  MoveBattleCamOver     (  20` )
+    EndChildThread
+    Call  $Function_802A123C ( )
+    Call  PlaySound ( 00000365 )
+    Wait  10`
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit      ( *Var0 ~Flags:DamageType:NoContact 00000000 *Var0 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  $Function_802A1354 ( )
+    Wait  5`
+    Call  StartRumble       ( 0000000A )
+    Call  ShakeCam  ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  GetItemPower      ( .Item:ThunderRage *Var0 *Var1 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|Electric 00000000 *Var0 00000020 )
+    Label  1
+    Wait  5`
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver     (  20` )
+    Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    Wait  30`
+    Call  $Function_802A12D4 ( )
+    ExecWait  $Script_802A18D0
+    Return
+    End
+}

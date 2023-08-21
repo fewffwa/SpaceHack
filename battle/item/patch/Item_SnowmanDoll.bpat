@@ -1,0 +1,69 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000081
+    ExecWait  $Script_802A1440
+    Call  $Function_802A1320 ( )
+    Call  PlaySoundAtActor  ( .Actor:Player 00000363 )
+    Thread
+        Loop  0000002D
+            Call  RandInt       ( 0000012C *Var0 )
+            Sub   *Var0  00000096
+            Set   *Var1  000000AA
+            Call  RandInt       ( 00000032 *Var2 )
+            Sub   *Var2  00000019
+            Call  PlayEffect    ( ~FX:Snowflake *Var0 *Var1 *Var2 0000003C 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+            Wait  2`
+        EndLoop
+    EndThread
+    Wait  10`
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver     (  50` )
+    Wait  50`
+    Call  PlayEffect    ( ~FX:SnowmanDoll 00000000 00000000 00000014 *Fixed[1.0] 000000A0 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Thread
+        Wait  17`
+        Call  PlaySoundAtActor  ( .Actor:Player 0000202E )
+        Call  StartRumble   ( 00000009 )
+        Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+        Wait  46`
+        Call  PlaySoundAtActor  ( .Actor:Player 0000202E )
+        Call  StartRumble   ( 00000009 )
+        Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+        Wait  25`
+        Call  PlaySoundAtActor  ( .Actor:Player 0000202E )
+        Call  StartRumble   ( 00000009 )
+        Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+        Wait  25`
+        Call  PlaySoundAtActor  ( .Actor:Player 0000202E )
+        Call  StartRumble   ( 00000009 )
+        Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+    EndThread
+    Wait  15`
+    Call  StartRumble   ( 0000000A )
+    Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+    Call  ShakeCam      ( .Cam:Battle 00000000  10` *Fixed[2.0] )
+    Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+    Wait  110`
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit  ( *Var0 ~Flags:DamageType:NoContact 00000000 *Var0 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  GetGoalPos        ( .Actor:Self *Var0 *Var1 *Var2 )
+    Call  $Function_802A123C    ( *Var0 *Var1 *Var2 )
+    Call  GetItemPower      ( .Item:SnowmanDoll *Var0 *Var1 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|Ice 00000000 *Var0 00000020 )
+    Wait  5`
+    Label  1
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    Wait  30`
+    Call  $Function_802A13B8 ( )
+    ExecWait  $Script_802A1870
+    Return
+    End
+}

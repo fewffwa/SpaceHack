@@ -1,0 +1,417 @@
+
+@ $Script_80220990 {
+    Call  $Function_80218588 ( )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  0000000F
+        Add   *Var1  0000005A
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_802186D0    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.05] )
+        EndThread
+    Else
+        Add   *Var0  00000006
+        Add   *Var1  00000024
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_802186D0    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.02] )
+        EndThread
+    EndIf
+    Wait  65`
+    Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  0000000F
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 0000005A *Var2 *Fixed[1.0] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 0000005A *Var2 *Fixed[1.0] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 0000005A *Var2 *Fixed[1.0] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Add   *Var0  00000006
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000024 *Var2 *Fixed[0.4] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000024 *Var2 *Fixed[0.4] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000024 *Var2 *Fixed[0.4] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002121 )
+    Wait  30`
+    Call  RemoveEffect      ( *VarF )
+    Call  RemoveEffect      ( *VarE )
+    Call  RemoveEffect      ( *VarD )
+    Call  SetPartEventBits  ( .Actor:Self 00000001 00000000 .False )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000001 .Decoration:RadialStarEmitter )
+    Call  SetDefenseTable   ( .Actor:Self 00000001 $DefenseTable_8021F220 )
+    Call  SetStatusTable    ( .Actor:Self $StatusTable_8021F2D8 )
+    Call  $Function_802186A0 ( )
+    Wait  3`
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000028
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 00000046 00000050 00000019 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000010
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 0000001C 00000020 0000000A 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002125 )
+    Thread
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Call  $Function_80218AA4    ( *Var0 *Var1 *Var2 *Fixed[0.8] )
+    EndThread
+    Wait  75`
+    Thread
+        Call  $Function_80218620 ( )
+    EndThread
+    Call  SetAnimation      ( .Actor:Self 00000001 00810008 )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var1  00000028
+    Else
+        Add   *Var1  00000010
+    EndIf
+    Call  PlayEffect        ( ~FX:EnergyWaveOut:Grey *Var0 *Var1 *Var2 *Fixed[1.0] 0000000F 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlaySoundAtActor  ( .Actor:Self 00002124 )
+    Call  UseBattleCamPreset    ( 00000013 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    Sub   *Var0  0000000F
+    Add   *Var1  00000041
+    Call  SetBattleCamTarget    ( *Var0 *Var1 *Var2 )
+    Call  SetBattleCamZoom  (  400` )
+    Call  SetBattleCamOffsetZ   (  0` )
+    Call  MoveBattleCamOver (  32` )
+    Wait  32`
+    Return
+    End
+}
+@ $Script_80222E48 {
+    Call  $Function_802192FC ( )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  0000000F
+        Add   *Var1  0000005A
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_80219444    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.05] )
+        EndThread
+    Else
+        Add   *Var0  00000006
+        Add   *Var1  00000024
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_80219444    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.02] )
+        EndThread
+    EndIf
+    Wait  65`
+    Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  0000000F
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 0000005A *Var2 *Fixed[1.0] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 0000005A *Var2 *Fixed[1.0] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 0000005A *Var2 *Fixed[1.0] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Add   *Var0  00000006
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000024 *Var2 *Fixed[0.4] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000024 *Var2 *Fixed[0.4] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000024 *Var2 *Fixed[0.4] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002121 )
+    Wait  30`
+    Call  RemoveEffect      ( *VarF )
+    Call  RemoveEffect      ( *VarE )
+    Call  RemoveEffect      ( *VarD )
+    Call  SetPartEventBits  ( .Actor:Self 00000001 00000000 .False )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000001 .Decoration:RadialStarEmitter )
+    Call  SetDefenseTable   ( .Actor:Self 00000001 $DefenseTable_80221510 )
+    Call  SetStatusTable    ( .Actor:Self $StatusTable_802215C8 )
+    Call  $Function_80219414 ( )
+    Wait  3`
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000028
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 00000046 00000050 00000019 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000010
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 0000001C 00000020 0000000A 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002125 )
+    Thread
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Call  $Function_80219818    ( *Var0 *Var1 *Var2 *Fixed[0.8] )
+    EndThread
+    Wait  75`
+    Thread
+        Call  $Function_80219394 ( )
+    EndThread
+    Call  SetAnimation      ( .Actor:Self 00000001 00810008 )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var1  00000028
+    Else
+        Add   *Var1  00000010
+    EndIf
+    Call  PlayEffect        ( ~FX:EnergyWaveOut:Grey *Var0 *Var1 *Var2 *Fixed[1.0] 0000000F 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlaySoundAtActor  ( .Actor:Self 00002124 )
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver (  39` )
+    Wait  30`
+    Return
+    End
+}
+@ $Script_80228678 {
+    Call  $Function_8021A6BC ( )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  00000016
+        Add   *Var1  00000087
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_8021A804    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.07519531] )
+        EndThread
+    Else
+        Add   *Var0  00000009
+        Add   *Var1  00000036
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_8021A804    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.03] )
+        EndThread
+    EndIf
+    Wait  65`
+    Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  00000016
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000087 *Var2 *Fixed[1.5] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000087 *Var2 *Fixed[1.0] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000087 *Var2 *Fixed[1.5] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Add   *Var0  00000009
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000036 *Var2 *Fixed[0.6] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000036 *Var2 *Fixed[0.4] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000036 *Var2 *Fixed[0.6] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002121 )
+    Wait  30`
+    Call  RemoveEffect      ( *VarF )
+    Call  RemoveEffect      ( *VarE )
+    Call  RemoveEffect      ( *VarD )
+    Call  SetPartEventBits  ( .Actor:Self 00000001 00000000 .False )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000001 .Decoration:RadialStarEmitter )
+    Call  SetDefenseTable   ( .Actor:Self 00000001 $DefenseTable_802275C0 )
+    Call  SetStatusTable    ( .Actor:Self $StatusTable_80227678 )
+    Call  $Function_8021A7D4 ( )
+    Wait  3`
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  0000003C
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 00000069 00000078 00000025 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000018
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 0000002A 00000030 0000000F 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002125 )
+    Thread
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Call  $Function_8021ABD8    ( *Var0 *Var1 *Var2 *Fixed[1.2] )
+    EndThread
+    Wait  75`
+    Thread
+        Call  $Function_8021A754 ( )
+    EndThread
+    Call  SetAnimation      ( .Actor:Self 00000001 00810008 )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var1  0000003C
+    Else
+        Add   *Var1  00000018
+    EndIf
+    Call  PlayEffect        ( ~FX:EnergyWaveOut:Grey *Var0 *Var1 *Var2 *Fixed[1.5] 0000000F 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlaySoundAtActor  ( .Actor:Self 00002124 )
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver (  39` )
+    Wait  30`
+    Return
+    End
+}
+@ $Script_Init_8022D6A0 {
+    Call  SetActorVar   ( .Actor:Self 00000000 00000000 )
+    Call  SetActorVar   ( .Actor:Self 00000002 00000000 )
+    Call  SetActorVar   ( .Actor:Self 00000004 00000003 )
+    Call  SetActorVar   ( .Actor:Self 00000005 00000003 )
+    Call  SetActorVar   ( .Actor:Self 00000009 00000000 )
+    Call  SetActorVar   ( .Actor:Self 0000000A 00000000 )
+    Call  SetActorVar   ( .Actor:Self 00000003 00000000 )
+    Call  SetActorVar   ( .Actor:Self 00000006 00000000 )
+    Call  SetActorVar   ( .Actor:Self 00000007 00000003 )
+    Call  SetActorVar   ( .Actor:Self 0000000E 00000000 )
+    Call  SetEnemyHP    ( .Actor:Self *GB_FinalBowserHP )
+    If  *GB_FinalBowserHP  <  00000001
+        Call  SetEnemyHP    ( .Actor:Self  1` )
+    EndIf
+    Call  SetActorScale     ( .Actor:Self *Fixed[1.5] *Fixed[1.5] *Fixed[1.0] )
+    Call  ModifyActorDecoration ( .Actor:Self 00000001 00000001 00000096 00000000 00000000 00000000 )
+    Exec  $Script_8022F488
+    Call  ModifyActorDecoration ( .Actor:Self 00000001 00000000 00000096 00000096 00000000 00000000 )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000000 0000000A )
+    Call  SetPartEventBits  ( .Actor:Self 00000001 00000000 .False )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000001 .Decoration:RadialStarEmitter )
+    Call  SetDefenseTable   ( .Actor:Self 00000001 $DefenseTable_8022D4F0 )
+    Call  SetStatusTable    ( .Actor:Self $StatusTable_8022D5A8 )
+    Call  BindTakeTurn      ( .Actor:Self $Script_TakeTurn_8022F2BC )
+    Call  BindIdle  ( .Actor:Self $Script_Idle_8022D93C )
+    Call  BindHandleEvent   ( .Actor:Self $Script_HandleEvent_8022DF74 )
+    Call  BindNextTurn      ( .Actor:Self $Script_NextTurn_8022DAB8 )
+    Call  SetBattleFlagBits2    ( 02000000 .True )
+    Return
+    End
+}
+@ $Script_8022F4A4 {
+    Call  $Function_8021C004 ( )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  00000016
+        Add   *Var1  00000087
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_8021C14C    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.07519531] )
+        EndThread
+    Else
+        Add   *Var0  00000009
+        Add   *Var1  00000036
+        Thread
+            Call  PlaySoundAtActor      ( .Actor:Self 00002123 )
+            Add   *Var2  0000000A
+            Call  $Function_8021C14C    ( *Var0 *Var1 *Var2 *Fixed[2.5] *Fixed[0.03] )
+        EndThread
+    EndIf
+    Wait  65`
+    Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var0  00000016
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000087 *Var2 *Fixed[1.5] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000087 *Var2 *Fixed[1.0] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000087 *Var2 *Fixed[1.5] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Add   *Var0  00000009
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( ~FX:LightRays:SharpA *Var0 00000036 *Var2 *Fixed[0.6] *VarF 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000036 *Var2 *Fixed[0.4] *VarE 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+        Sub   *Var2  00000003
+        Call  PlayEffect    ( 0000003C 00000002 *Var0 00000036 *Var2 *Fixed[0.6] *VarD 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002121 )
+    Wait  30`
+    Call  RemoveEffect      ( *VarF )
+    Call  RemoveEffect      ( *VarE )
+    Call  RemoveEffect      ( *VarD )
+    Call  SetPartEventBits  ( .Actor:Self 00000001 00000000 .False )
+    Call  AddActorDecoration    ( .Actor:Self 00000001 00000001 .Decoration:RadialStarEmitter )
+    Call  SetDefenseTable   ( .Actor:Self 00000001 $DefenseTable_8022D4F0 )
+    Call  SetStatusTable    ( .Actor:Self $StatusTable_8022D5A8 )
+    Call  $Function_8021C11C ( )
+    Wait  3`
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  0000003C
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 00000069 00000078 00000025 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    Else
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Add   *Var1  00000018
+        Add   *Var2  0000000C
+        Call  PlayEffect    ( ~FX:RainbowShimmer *Var0 *Var1 *Var2 0000002A 00000030 0000000F 0000003C 00000000 00000000 00000000 00000000 00000000 )
+    EndIf
+    Call  PlaySoundAtActor  ( .Actor:Self 00002125 )
+    Thread
+        Call  GetActorPos   ( .Actor:Self *Var0 *Var1 *Var2 )
+        Call  $Function_8021C520    ( *Var0 *Var1 *Var2 *Fixed[1.2] )
+    EndThread
+    Wait  75`
+    Thread
+        Call  $Function_8021C09C ( )
+    EndThread
+    Call  SetAnimation      ( .Actor:Self 00000001 00810008 )
+    Call  GetStatusFlags    ( .Actor:Self *Var3 )
+    Call  GetActorPos       ( .Actor:Self *Var0 *Var1 *Var2 )
+    If  *Var3  !&  ~Flags:StatusFlags:Shrink % 80000
+        Add   *Var1  0000003C
+    Else
+        Add   *Var1  00000018
+    EndIf
+    Call  PlayEffect        ( ~FX:EnergyWaveOut:Grey *Var0 *Var1 *Var2 *Fixed[1.5] 0000000F 00000000 00000000 00000000 00000000 00000000 00000000 00000000 )
+    Call  PlaySoundAtActor  ( .Actor:Self 00002124 )
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver (  39` )
+    Wait  30`
+    Return
+    End
+}
+@ $Bowser3 {
+    % stats
+    [Index]        C5b
+    [Level]         0`b
+    [MaxHP]        1`b
+    [Coins]         0`b
+    [Flags]       00000000
+    [StatusTable] $StatusTable_8022D4FC
+    % ai
+    [PartsCount]    1`s
+    [PartsTable]  $PartsTable_8022D654
+    [Script]      $Script_Init_8022D6A0
+    % move effectiveness
+    [Escape]        0`b
+    [Item]          0`b
+    [AirLift]       0`b
+    [Hurricane]     0`b % Bow's "Spook" as well
+    [UpAndAway]     0`b
+    [PowerBounce]  60`b
+    [SpinSmash]     4`b % weight (0-4)
+    % ui positions
+    [Size]        123`b 119`b % width height
+    [HealthBar]     0`b   0`b % dx dy
+    [StatusTurn]  -53`b 103`b % dx dy
+    [StatusIcon]   33`b  92`b % dx dy
+}
+@ $DefenseTable_8022D4F0 {
+    .Element:Normal 00000062
+    .Element:End
+}
+@ $Script_NextTurn_8022DAB8 {
+    Return
+    End
+}

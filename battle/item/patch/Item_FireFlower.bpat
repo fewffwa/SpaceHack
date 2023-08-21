@@ -1,0 +1,63 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000080
+    ExecWait  $Script_802A1400
+    Call  $Function_802A12E0 ( )
+    Call  PlaySound     ( 00000377 )
+    Call  SetAnimation  ( .Actor:Player 00000000 0001001E )
+    Thread
+        Wait  50`
+        Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    EndThread
+    Wait  35`
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver     (  20` )
+    Wait  10`
+    Call  GetActorPos   ( .Actor:Player *Var3 *Var4 *Var5 )
+    Set   *Var0  00000028
+    Call  MultiplyByActorScale  ( *Var0 )
+    Add   *Var3  *Var0
+    Thread
+        Call  GetActorPos   ( .Actor:Player *Var0 *Var1 *Var2 )
+        Sub   *Var0  0000000A
+        Call  SetActorSpeed ( .Actor:Player *Fixed[2.0] )
+        Call  SetAnimation  ( .Actor:Player 00000000 00010005 )
+        Call  SetGoalPos    ( .Actor:Player *Var0 *Var1 *Var2 )
+        Call  PlayerRunToGoal   ( 00000000 )
+        Call  SetAnimation  ( .Actor:Player 00000000 00010002 )
+    EndThread
+    Thread
+        Call  $Function_802A123C    ( *Var3 *Var4 *Var5 )
+        Wait  25`
+        Loop  0000000C
+            Wait  1`
+            Call  PlaySound ( 0000202C )
+            Wait  2`
+            Call  PlaySound ( 0000202D )
+            Wait  1`
+        EndLoop
+    EndThread
+    Wait  80`
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver (  20` )
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit      ( *Var0 ~Flags:DamageType:NoContact 00000000 *Var0 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  GetGoalPos        ( .Actor:Self *Var0 *Var1 *Var2 )
+    Call  GetItemPower      ( .Item:FireFlower *Var0 *Var1 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|Fire 00000000 *Var0 00000020 )
+    Label  1
+    Wait  5`
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Call  $Function_802A1378 ( )
+    Wait  30`
+    ExecWait  $Script_802A1830
+    Return
+    End
+}

@@ -1,0 +1,72 @@
+@ $Script_UseItem {
+    SetConst  *VarA  00000083
+    ExecWait  $Script_802A1550
+    Thread
+        Wait  5`
+        Call  UseBattleCamPreset    ( 00000002 )
+        Call  MoveBattleCamOver     (  20` )
+    EndThread
+    Call  $Function_802A1444 ( )
+    Thread
+        Set   *Var0  00000000
+        Loop  0000000A
+            Call  PlaySoundAtActor  ( .Actor:Player 00000259 )
+            Call  $Function_802A123C ( )
+            Add   *Var0  00000001
+            Wait  5`
+            Call  PlaySoundAtActor  ( .Actor:Player 0000025A )
+            Call  $Function_802A123C ( )
+            Add   *Var0  00000001
+            Wait  5`
+        EndLoop
+    EndThread
+    Thread
+        Set   *Var0  00000000
+        Wait  50`
+        Loop  0000000A
+            Call  PlaySoundAtActor  ( .Actor:Player 0000025C )
+            Add   *Var0  00000001
+            Wait  5`
+            Call  PlaySoundAtActor  ( .Actor:Player 0000025D )
+            Add   *Var0  00000001
+            Wait  5`
+        EndLoop
+    EndThread
+    Thread
+        Loop  00000005
+            Wait  15`
+            Call  StartRumble   ( 00000008 )
+            Call  ShakeCam      ( .Cam:Battle 00000000  5` *Fixed[1.0] )
+        EndLoop
+    EndThread
+    Wait  90`
+    Call  UseBattleCamPreset    ( 00000003 )
+    Call  MoveBattleCamOver (  20` )
+    Call  InitTargetIterator ( )
+    Label  0
+    Call  SetGoalToTarget   ( .Actor:Self )
+    Call  ItemCheckHit      ( *Var0 ~Flags:DamageType:NoContact 00000000 *Var0 00000000 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Goto  1
+    EndIf
+    Call  GetGoalPos        ( .Actor:Self *Var0 *Var1 *Var2 )
+    Call  $Function_802A1388    ( *Var0 *Var1 *Var2 )
+    Call  GetItemPower      ( .Item:ShootingStar *Var0 *Var1 )
+    Call  ItemDamageEnemy   ( *Var0 ~Flags:DamageType:NoContact|NoOtherDamagePopups|Cosmic 00000000 *Var0 00000020 )
+    Label  1
+    Wait  10`
+    Call  ChooseNextTarget  ( .Iter:Next *Var0 )
+    If  *Var0  !=  FFFFFFFF
+        Goto  0
+    EndIf
+    Wait  20`
+    Call  UseBattleCamPreset    ( 00000002 )
+    Call  MoveBattleCamOver     (  20` )
+    ExecWait  $Script_802A1980
+    Thread
+        Call  $Function_802A14D4 ( )
+    EndThread
+    Wait  30`
+    Return
+    End
+}

@@ -1,0 +1,193 @@
+@ $Script_80239BC8 {
+    Call  LoadActionCommand ( .ActionCommand:BodySlam )
+    Call  802A9000 ( )
+    Call  SetupMashMeter    ( 00000001 00000064 00000000 00000000 00000000 00000000 )
+    Wait  10`
+    Call  UseBattleCamPreset    ( 00000030 )
+    Call  InitTargetIterator ( )
+    Call  SetGoalToTarget   ( .Actor:Partner )
+    Call  AddGoalPos        ( .Actor:Partner  -20`  0`  0` )
+    Set   *Flag[02]  .False
+    Loop  0000003C
+        Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+        If  *Var0  !=  .False
+            Set   *Flag[02]  .True
+            BreakLoop
+        EndIf
+        Wait  1`
+    EndLoop
+    Call  MoveBattleCamOver (  75` )
+    If  *Flag[02]  ==  .True
+        Call  802A91B8  ( 00000000 00000066 00000003 00000001 )
+        Set   *Flag[00]  .False
+        Exec  $Script_80239A10 *VarA
+        Loop  00000014
+            Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+            If  *Var0  ==  .False
+                Set   *Flag[00]  .True
+                BreakLoop
+            EndIf
+            Wait  1`
+        EndLoop
+        If  *Flag[00]  ==  .True
+            Kill  *VarA
+            Goto  A
+        EndIf
+        Call  PartnerTestEnemy  ( *Var0 ~Flags:DamageType:0 00000004 00000000  1` 00000010 )
+        Set   *Flag[00]  .False
+        Exec  $Script_80239A54 *VarA
+        Loop  00000037
+            Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+            If  *Var0  ==  .False
+                Set   *Flag[00]  .True
+                BreakLoop
+            EndIf
+            Wait  1`
+        EndLoop
+        If  *Flag[00]  ==  .True
+            Kill  *VarA
+            Goto  A
+        EndIf
+        If  *Flag[00]  ==  .False
+            Exec  $Script_80239B98 *VarA
+            Loop  0000001E
+                Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+                If  *Var0  ==  .False
+                    Set   *Flag[00]  .True
+                    BreakLoop
+                EndIf
+                Wait  1`
+            EndLoop
+            If  *Flag[00]  ==  .True
+                Kill  *VarA
+                Goto  A
+            EndIf
+        EndIf
+    Else
+        Set   *Flag[00]  .False
+        Exec  $Script_80239A10 *VarA
+        Loop  00000014
+            Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+            If  *Var0  !=  .False
+                If  *Flag[02]  ==  .False
+                    Call  802A91B8  ( 00000000 0000005C 00000003 00000001 )
+                    Set   *Flag[02]  .True
+                EndIf
+            EndIf
+            If  *Flag[02]  ==  .True
+                If  *Var0  ==  .False
+                    Set   *Flag[00]  .True
+                    BreakLoop
+                EndIf
+            EndIf
+            Wait  1`
+        EndLoop
+        If  *Flag[00]  ==  .True
+            Kill  *VarA
+            Goto  A
+        EndIf
+        Call  PartnerTestEnemy  ( *Var0 ~Flags:DamageType:0 00000004 00000000  1` 00000010 )
+        Set   *Flag[00]  .False
+        Exec  $Script_80239A54 *VarA
+        Loop  00000037
+            Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+            If  *Var0  !=  .False
+                If  *Flag[02]  ==  .False
+                    Call  802A91B8  ( 00000000 0000005C 00000003 00000001 )
+                    Set   *Flag[02]  .True
+                EndIf
+            EndIf
+            If  *Flag[02]  ==  .True
+                If  *Var0  ==  .False
+                    Set   *Flag[00]  .True
+                    BreakLoop
+                EndIf
+            EndIf
+            Wait  1`
+        EndLoop
+        If  *Flag[00]  ==  .True
+            Kill  *VarA
+            Goto  A
+        EndIf
+        If  *Flag[00]  ==  .False
+            Exec  $Script_80239B98 *VarA
+            Loop  0000001E
+                Call  CheckButtonDown   ( ~Flags:Buttons:A *Var0 )
+                If  *Var0  ==  .False
+                    Set   *Flag[00]  .True
+                    BreakLoop
+                EndIf
+                Wait  1`
+            EndLoop
+            If  *Flag[00]  ==  .True
+                Kill  *VarA
+                Goto  A
+            EndIf
+        EndIf
+    EndIf
+    Label  A
+    Wait  2`
+    Call  CloseActionCommandInfo ( )
+    Call  $Function_80238570 ( )
+    Call  StopLoopingSoundAtActor   ( .Actor:Partner 00000000 )
+    Call  80269EAC      ( 00000013 )
+    Call  SetAnimation  ( .Actor:Partner FFFFFFFF 000E0005 )
+    Call  8026EA7C      ( FFFFFF81 00000001 0000000A )
+    Call  SetGoalToTarget   ( .Actor:Partner )
+    Call  AddGoalPos    ( .Actor:Partner  -5`  0`  0` )
+    Call  FlyToGoal     ( .Actor:Partner  5`  0` .Easing:Linear )
+    Thread
+        Wait  2`
+        Call  $Function_80238478    ( 00000000 )
+    EndThread
+    Call  PartnerTestEnemy  ( *Var0 ~Flags:DamageType:0 00000004 00000000  1` 00000010 )
+    If  *Var0  ==  .HitResult:Miss % 6
+        Thread
+            Wait  5`
+            Call  SetAnimation  ( .Actor:Partner FFFFFFFF 000E0001 )
+        EndThread
+        Call  SetGoalToTarget   ( .Actor:Partner )
+        Call  AddGoalPos    ( .Actor:Partner  40`  10`  0` )
+        Call  FlyToGoal     ( .Actor:Partner  10`  -20` .Easing:QuadraticOut )
+        Wait  20`
+        Call  SetGoalToHome ( .Actor:Partner )
+        Call  SetAnimation  ( .Actor:Partner FFFFFFFF 000E0003 )
+        Call  FlyToGoal     ( .Actor:Partner  30`  0` .Easing:CosInOut )
+        Call  SetAnimation  ( .Actor:Partner FFFFFFFF 000E0001 )
+        Return
+    EndIf
+    Call  $Function_802383E4 ( )
+    Call  $Function_802383C0 ( )
+    Call  GetMenuSelection  ( *Var0 *Var1 *Var2 )
+    Switch  *Var2
+        Case  ==  000000A1
+            Set   *VarE  00000001
+            Set   *VarF  00000003
+        Case  ==  000000A2
+            Set   *VarE  00000001
+            Set   *VarF  00000004
+        Case  ==  000000A3
+            Set   *VarE  00000001
+            Set   *VarF  00000005
+    EndSwitch
+    Call  GetActionCommandResult    ( *Var0 )
+    Switch  *Var0
+        Case  >  00000000
+            Call  PartnerDamageEnemy    ( *Var0 ~Flags:DamageType:Electric 0000008D 00000000 *VarF 00000070 )
+        Default
+            Call  PartnerDamageEnemy    ( *Var0 ~Flags:DamageType:Electric 0000008D 00000000 *VarE 00000030 )
+    EndSwitch
+    Call  80280818 ( )
+    Switch  *Var0
+        CaseOR  ==  00000001 % 1
+        CaseOR  ==  00000003 % 3
+            ExecWait  $Script_80239914
+        EndCaseGroup
+        CaseOR  ==  .HitResult:Hit % 0
+        CaseOR  ==  .HitResult:QuakeImmune % 2
+            ExecWait  $Script_80239990
+        EndCaseGroup
+    EndSwitch
+    Return
+    End
+}
