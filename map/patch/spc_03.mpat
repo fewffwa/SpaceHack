@@ -60,6 +60,13 @@
 #new:Script $Script_Idle_8024CDAC
 {
 	Call SetNpcAnimation ( .NpcID:GourmetGuy 00C10001 )
+	Loop
+	If *GourmetBossBattle == 1
+	Call StartBossBattle ( .Song:FinalBowserBattle )
+	Set *GourmetBossBattle 0
+	EndIf
+	Wait 1
+	EndLoop
    C4:  Return
    CC:  End
 }
@@ -204,7 +211,7 @@ Case == 10`
 	Call AddItem ( .Item:FrightJar 4 )
 	Call AddItem ( .Item:EggMissile 4 )
 	Call BringPartnerOut ( .Partner:Goombario )
-    Call StartBossBattle ( .Song:FinalBowserBattle )
+    Set *GourmetBossBattle 1
 	Wait 120`
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward )
 	Call GotoMap ( "kmr_30" 0 )

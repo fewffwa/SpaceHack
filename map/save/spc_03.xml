@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="spc_03" author="unnamed" background="hos_bg" textures="hos_tex">
 	<Editor>
-		<Camera pos="-39.813805,116.468567,443.932861" pitch="10.000000" yaw="0.000000"/>
-		<Camera pos="-1.559296,65536.000000,-32.676937"/>
-		<Camera pos="65536.000000,-657.037292,320.366821"/>
-		<Camera pos="-61.500378,-99.221794,65536.000000"/>
+		<Camera pos="0.000000,134.036804,442.567749" pitch="10.000000" yaw="0.000000"/>
+		<Camera pos="27.707447,65536.000000,94.175613"/>
+		<Camera pos="65536.000000,-1554.547363,352.462921"/>
+		<Camera pos="-61.500378,-178.763550,65536.000000"/>
 	</Editor>
 	<ModelTree>
 		<Node name="Root" id="9">
@@ -47,21 +47,17 @@
 		</Node>
 	</ColliderTree>
 	<ZoneTree>
-		<Node name="Root" id="5">
+		<Node name="Root" id="2">
 			<Node name="main_cam" id="0"/>
-			<Node name="exit_n_cam" id="1"/>
-			<Node name="exit_s_cam" id="2"/>
-			<Node name="boundary_e_cam" id="3"/>
-			<Node name="boundary_w_cam" id="4"/>
+			<Node name="Planar GridZone" id="1"/>
 		</Node>
 	</ZoneTree>
 	<MarkerTree>
-		<Node name="Root" id="3">
+		<Node name="Root" id="2">
 			<Node name="Entrances" id="0">
 				<Node name="entry_n" id="FFFFFFFF"/>
 			</Node>
 			<Node name="GourmetGuy" id="1"/>
-			<Node name="Marker" id="2"/>
 		</Node>
 	</MarkerTree>
 	<LightSets>
@@ -690,109 +686,42 @@
 	</Colliders>
 	<Zones>
 		<Zone ver="0">
-			<MapObject name="Root" id="5"/>
+			<MapObject name="Root" id="2"/>
 			<HitObject type="ROOT"/>
 		</Zone>
 		<Zone ver="0">
-			<MapObject name="boundary_w_cam" id="4" hidden="true"/>
+			<MapObject name="Planar GridZone" id="1"/>
 			<HitObject type="HIT"/>
 			<HitMesh ver="0">
 				<TriangleBatch ver="0">
 					<VertexTable>
-						<Vertex xyz="-600,0,-50"/>
-						<Vertex xyz="-600,0,50"/>
-						<Vertex xyz="-500,0,50"/>
-						<Vertex xyz="-500,0,-50"/>
-						<Vertex xyz="-500,0,-207"/>
-						<Vertex xyz="-500,0,207"/>
-						<Vertex xyz="-326,0,381"/>
+						<Vertex xyz="-150,0,152" uv="-512,512"/>
+						<Vertex xyz="150,0,-148" uv="512,-512"/>
+						<Vertex xyz="-150,0,-148" uv="-512,-512"/>
+						<Vertex xyz="150,0,152" uv="512,512"/>
 					</VertexTable>
 					<TriangleList>
 						<Triangle ijk="0,1,2"/>
-						<Triangle ijk="0,2,3"/>
-						<Triangle ijk="4,5,6"/>
-						<Triangle ijk="5,6,4"/>
+						<Triangle ijk="1,0,3"/>
 					</TriangleList>
 				</TriangleBatch>
 			</HitMesh>
-			<Camera type="TYPE_2" flag="false" boomLength="450.000000" boomPitch="15.000000" viewPitch="-5.000000" posA="-500,-325,207" posB="-500,402,-207" posC="-325,0,402"/>
+			<Camera type="TYPE_4" flag="false" boomLength="450.000000" boomPitch="16.000000" viewPitch="-6.000000" posA="0,10,110" posB="0,10,10" posC="10,0,10"/>
 		</Zone>
 		<Zone ver="0">
-			<MapObject name="boundary_e_cam" id="3" hidden="true"/>
+			<MapObject name="main_cam" id="0"/>
 			<HitObject type="HIT"/>
 			<HitMesh ver="0">
 				<TriangleBatch ver="0">
 					<VertexTable>
-						<Vertex xyz="500,0,-50"/>
-						<Vertex xyz="500,0,50"/>
-						<Vertex xyz="600,0,50"/>
-						<Vertex xyz="600,0,-50"/>
-						<Vertex xyz="326,0,381"/>
-						<Vertex xyz="500,0,207"/>
-						<Vertex xyz="500,0,-207"/>
-					</VertexTable>
-					<TriangleList>
-						<Triangle ijk="0,1,2"/>
-						<Triangle ijk="0,2,3"/>
-						<Triangle ijk="4,5,6"/>
-						<Triangle ijk="4,5,6"/>
-					</TriangleList>
-				</TriangleBatch>
-			</HitMesh>
-			<Camera type="TYPE_2" flag="false" boomLength="450.000000" boomPitch="15.000000" viewPitch="-5.000000" posA="500,325,207" posB="500,402,-207" posC="325,0,402"/>
-		</Zone>
-		<Zone ver="0">
-			<MapObject name="exit_s_cam" id="2" hidden="true"/>
-			<HitObject type="HIT"/>
-			<HitMesh ver="0">
-				<TriangleBatch ver="0">
-					<VertexTable>
-						<Vertex xyz="50,0,500"/>
-						<Vertex xyz="-50,0,500"/>
-						<Vertex xyz="-50,0,600"/>
-						<Vertex xyz="50,0,600"/>
-					</VertexTable>
-					<TriangleList>
-						<Triangle ijk="0,1,2"/>
-						<Triangle ijk="0,2,3"/>
-					</TriangleList>
-				</TriangleBatch>
-			</HitMesh>
-			<Camera type="TYPE_2" flag="true" boomLength="-1000000.000000" boomPitch="-180.000000" viewPitch="-180.000000" posA="0,0,0" posB="0,0,0" posC="0,0,0"/>
-		</Zone>
-		<Zone ver="0">
-			<MapObject name="exit_n_cam" id="1" hidden="true"/>
-			<HitObject type="HIT"/>
-			<HitMesh ver="0">
-				<TriangleBatch ver="0">
-					<VertexTable>
-						<Vertex xyz="50,0,-600"/>
-						<Vertex xyz="-50,0,-600"/>
-						<Vertex xyz="-50,0,-500"/>
-						<Vertex xyz="50,0,-500"/>
-					</VertexTable>
-					<TriangleList>
-						<Triangle ijk="0,1,2"/>
-						<Triangle ijk="0,2,3"/>
-					</TriangleList>
-				</TriangleBatch>
-			</HitMesh>
-			<Camera type="TYPE_2" flag="true" boomLength="-1000000.000000" boomPitch="-180.000000" viewPitch="-180.000000" posA="0,0,0" posB="0,0,0" posC="0,0,0"/>
-		</Zone>
-		<Zone ver="0">
-			<MapObject name="main_cam" id="0" hidden="true"/>
-			<HitObject type="HIT"/>
-			<HitMesh ver="0">
-				<TriangleBatch ver="0">
-					<VertexTable>
-						<Vertex xyz="-326,0,381"/>
-						<Vertex xyz="-207,0,500"/>
-						<Vertex xyz="207,0,500"/>
-						<Vertex xyz="326,0,381"/>
-						<Vertex xyz="500,0,-207"/>
-						<Vertex xyz="207,0,-500"/>
-						<Vertex xyz="-207,0,-500"/>
-						<Vertex xyz="-500,0,-207"/>
+						<Vertex xyz="-326,-2,381"/>
+						<Vertex xyz="-207,-2,500"/>
+						<Vertex xyz="207,-2,500"/>
+						<Vertex xyz="326,-2,381"/>
+						<Vertex xyz="500,-2,-207"/>
+						<Vertex xyz="207,-2,-500"/>
+						<Vertex xyz="-207,-2,-500"/>
+						<Vertex xyz="-500,-2,-207"/>
 					</VertexTable>
 					<TriangleList>
 						<Triangle ijk="0,1,2"/>
@@ -809,10 +738,7 @@
 	</Zones>
 	<Markers>
 		<Marker ver="4" type="Root">
-			<MapObject name="Root" id="3"/>
-		</Marker>
-		<Marker ver="4" type="Position" pos="-74,0,-18" yaw="0.000000">
-			<MapObject name="Marker" id="2"/>
+			<MapObject name="Root" id="2"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="73,0,-5" yaw="0.000000">
 			<MapObject name="GourmetGuy" id="1"/>
