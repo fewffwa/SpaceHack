@@ -11,6 +11,7 @@
 	If *Flag_Question_Number == 3
 	Bind $BushPersonScript .Trigger:WallPressA ~Collider:BushPersonCollider 0 1
 	EndIf
+	Call DisablePlayerInput ( .False )
 	Call PlayEffect ( 4E 0 3 1 0 )
     Call MakeNpcs ( .True $NpcGroupList_8025136C )
     Return
@@ -80,6 +81,12 @@
 }
 #new:Script $Script_Lectern{
 	Call DisablePlayerInput ( .True )
+	Thread
+	Call InterpPlayerYaw ( 170` 10` )
+	EndThread
+	Thread
+	Call InterpNpcYaw ( .NpcID:GourmetGuy -170` 10` )
+	EndThread
     Switch *Flag_Question_Number
     Case == 1
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ1 )
@@ -214,9 +221,12 @@ Case == 10`
     Set *GourmetBossBattle 1
 	Wait 120`
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward )
+	Wait 120`
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward2 )
+	Call ShowGotItem ( .Item:LimeCandy .True 0 )
+	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward3 )
 	Call GotoMap ( "kmr_30" 0 )
 	EndSwitch
-	Call DisablePlayerInput ( .False )
     Return
     End
 }
@@ -301,6 +311,19 @@ beat bowser?[br][Wait][end]
 What's your reward? [br]
 I guess I'll send you home[br]
 and not kill you...[Wait][end]
+}
+
+#new:String $GourmetGuyReward2
+{
+[Style Right]What? Don't look at me like[br]
+That.[br][wait][next] 
+Fine, I guess I can give you this.[Wait][end]
+}
+
+#new:String $GourmetGuyReward3
+{
+[Style Right]Now scram. I don't wanna[br]
+see you again.[br][Wait][end]
 }
 
 #new:String $GourmetGuyCorrect

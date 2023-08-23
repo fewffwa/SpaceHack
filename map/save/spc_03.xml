@@ -4,7 +4,7 @@
 		<Camera pos="0.000000,134.036804,442.567749" pitch="10.000000" yaw="0.000000"/>
 		<Camera pos="27.707447,65536.000000,94.175613"/>
 		<Camera pos="65536.000000,-1554.547363,352.462921"/>
-		<Camera pos="-61.500378,-178.763550,65536.000000"/>
+		<Camera pos="-61.500378,-184.688690,65536.000000"/>
 	</Editor>
 	<ModelTree>
 		<Node name="Root" id="9">
@@ -21,7 +21,7 @@
 		</Node>
 	</ModelTree>
 	<ColliderTree>
-		<Node name="Root" id="13">
+		<Node name="Root" id="14">
 			<Node name="Stage" id="2">
 				<Node name="main_floor" id="0"/>
 				<Node name="main_walls" id="1"/>
@@ -44,6 +44,7 @@
 			<Node name="Planar GridCollider" id="10"/>
 			<Node name="Planar GridCollider" id="11"/>
 			<Node name="LecternCollider" id="12"/>
+			<Node name="LecternCollider2" id="13"/>
 		</Node>
 	</ColliderTree>
 	<ZoneTree>
@@ -258,8 +259,28 @@
 	</Models>
 	<Colliders>
 		<Collider ver="0" flags="0">
-			<MapObject name="Root" id="13"/>
+			<MapObject name="Root" id="14"/>
 			<HitObject type="ROOT"/>
+		</Collider>
+		<Collider ver="0" flags="0">
+			<MapObject name="LecternCollider2" id="13"/>
+			<HitObject type="HIT"/>
+			<HitMesh ver="0">
+				<TriangleBatch ver="0">
+					<VertexTable>
+						<Vertex xyz="-62,29,1" uv="-512,512"/>
+						<Vertex xyz="-86,-29,0" uv="512,-512"/>
+						<Vertex xyz="-62,-29,0" uv="-512,-512"/>
+						<Vertex xyz="-86,-29,0" uv="512,-512"/>
+						<Vertex xyz="-62,29,1" uv="-512,512"/>
+						<Vertex xyz="-86,29,0" uv="512,512"/>
+					</VertexTable>
+					<TriangleList>
+						<Triangle ijk="0,1,2"/>
+						<Triangle ijk="3,4,5"/>
+					</TriangleList>
+				</TriangleBatch>
+			</HitMesh>
 		</Collider>
 		<Collider ver="0" flags="0">
 			<MapObject name="LecternCollider" id="12"/>
@@ -273,8 +294,8 @@
 						<Vertex xyz="-62,29,-1" uv="512,512"/>
 					</VertexTable>
 					<TriangleList>
-						<Triangle ijk="0,1,2" doubleSided="true"/>
-						<Triangle ijk="1,0,3" doubleSided="true"/>
+						<Triangle ijk="0,1,2"/>
+						<Triangle ijk="1,0,3"/>
 					</TriangleList>
 				</TriangleBatch>
 			</HitMesh>

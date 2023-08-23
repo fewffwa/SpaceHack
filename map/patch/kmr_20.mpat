@@ -1,4 +1,7 @@
 @ $Script_8024FD70 {
+Set   *GF_Tutorial_SwapTurnOrder 1
+Set *GF_Tutorial_GotItem 1
+Set *GF_Tutorial_SaveBlock 1
 Call GotoMap ( "spc_00" 2 )
 Return
 End

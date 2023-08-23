@@ -15,3 +15,130 @@
   Return
   End
 }
+@ $Script_80240C10 {
+  Call  DisablePlayerInput    ( .True )
+  Call  InterpPlayerYaw   (  270`  0` )
+  Call  SetPlayerPos  (  520`  0`  -180` )
+  Call  DisablePartnerAI  ( 00000000 )
+  Call  SetNpcFlagBits    ( .Npc:Partner 00000200 .False )
+  Call  SetNpcPos     ( .Npc:Partner  0`  -500`  0` )
+  Call  EnableGroup   ( ~Model:the_end .False )
+  Call  UseSettingsFrom   ( .Cam:Default  0`  0`  0` )
+  Call  SetPanTarget  ( .Cam:Default  0`  0`  0` )
+  Call  SetCamPitch   ( .Cam:Default *Fixed[8.0] *Fixed[-11.5] )
+  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  Call  SetPlayerSpeed        ( *Fixed[2.0] )
+  Call  PlayerMoveTo  (  450`  -60`  0` )
+  Call  PlayerMoveTo  (  320`  -80`  0` )
+  Call  PlayerMoveTo  (  300`  -120`  0` )
+  Wait  30`
+  Call  PlayEffect    ( ~FX:Firework:Rocket1 00000099 00000172 FFFFFEA2 FFFFFFFF 00000004 FFFFFFFF *Fixed[1.6] 00000046 00000000 00000000 00000000 00000000 )
+  Call  $Function_80240310    ( *VarF )
+  Wait  30`
+  Call  PlayEffect    ( ~FX:Firework:Rocket2 0000014D 000001A4 FFFFFEF2 FFFFFFFF 00000004 FFFFFFFF *Fixed[1.6] 00000046 00000000 00000000 00000000 00000000 )
+  Call  $Function_80240310    ( *VarF )
+  Wait  30`
+  Call  PlayEffect    ( ~FX:Firework:Rocket1 FFFFFFE5 00000140 FFFFFE52 FFFFFFFF 00000004 FFFFFFFF *Fixed[1.6] 00000046 00000000 00000000 00000000 00000000 )
+  Call  $Function_80240310    ( *VarF )
+  Wait  80`
+  Call  PlayEffect    ( 00000077 00000002 00000099 00000172 FFFFFEA2 FFFFFFFF 00000004 FFFFFFFF *Fixed[1.6] 00000046 00000000 00000000 00000000 00000000 )
+  Call  $Function_80240310    ( *VarF )
+  Wait  30`
+  Thread
+    Wait  150`
+    Loop
+      Call  RandInt   ( 0000003C *Var1 )
+      Add   *Var1  00000005
+      Call  RandInt   ( 00000005 *Var2 )
+      Add   *Var2  00000001
+      Loop  *Var2
+        Set   *Var0  00000000
+        Exec  $Script_80240920
+        Wait  *Var1
+      EndLoop
+      Call  RandInt   ( 0000003C *Var0 )
+      Add   *Var0  0000003C
+      Wait  *Var0
+      Set   *Var0  00000002
+      Exec  $Script_80240920
+      Call  RandInt   ( 0000003C *Var0 )
+      Add   *Var0  0000003C
+      Wait  *Var0
+    EndLoop
+  EndThread
+  Thread
+    Wait  240`
+    Loop
+      Call  RandInt   ( 0000003C *Var1 )
+      Add   *Var1  00000005
+      Call  RandInt   ( 00000005 *Var2 )
+      Add   *Var2  00000001
+      Loop  *Var2
+        Set   *Var0  00000001
+        Exec  $Script_80240920
+        Wait  *Var1
+      EndLoop
+      Call  RandInt   ( 0000003C *Var0 )
+      Add   *Var0  0000003C
+      Wait  *Var0
+      Set   *Var0  00000002
+      Exec  $Script_80240920
+      Call  RandInt   ( 0000003C *Var0 )
+      Add   *Var0  0000003C
+      Wait  *Var0
+    EndLoop
+  EndThread
+  Wait  30`
+  Call  EnableGroup       ( ~Model:the_end .True )
+  Call  SetModelCustomGfx ( ~Model:g 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:l 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:i 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:z 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:z2 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:o 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:b 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:t 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:a 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:i2 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:n 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:e 00000001 FFFFFFFF )
+  Call  SetModelCustomGfx ( ~Model:d 00000001 FFFFFFFF )
+  Call  SetCustomGfxBuilders  ( 00000001 $Function_80240488 00000000 )
+  Call  MakeLerp  ( 00000000 000000FF 0000005A .Easing:Linear )
+  Loop
+    Call  UpdateLerp ( )
+    Call  $Function_8024045C    ( *Var0 )
+    Wait  1`
+    If  *Var1  ==  00000000
+      BreakLoop
+    EndIf
+  EndLoop
+  Wait  600`
+  Thread
+    Call  PlayEffect    ( ~FX:Firework:Rocket1 00000136 00000118 FFFFFF06 FFFFFFFF 00000006 FFFFFFFF *Fixed[1.6] 00000046 00000000 00000000 00000000 00000000 )
+    Call  $Function_80240310    ( *VarF )
+  EndThread
+  Wait  20`
+  Call  MakeLerp  ( 00000000 00000064 0000001E .Easing:Linear )
+  Loop
+    Call  UpdateLerp ( )
+    SetF  *Var2  *Fixed[3.6]
+    SetF  *Var3  *Fixed[-6.0]
+    SetF  *Var4  *Fixed[0.6]
+    SetF  *Var5  *Fixed[-0.0048828125]
+    MulF  *Var2  *Var0
+    MulF  *Var3  *Var0
+    MulF  *Var4  *Var0
+    MulF  *Var5  *Var0
+    AddF  *Var5  *Fixed[1.0]
+    Call  ScaleGroup        ( ~Model:the_end *Var5 *Var5 *Var5 )
+    Call  TranslateGroup    ( ~Model:the_end *Var2 *Var3 *Var4 )
+    Wait  1`
+    If  *Var1  ==  00000000
+      BreakLoop
+    EndIf
+  EndLoop
+  Return
+  End
+}
