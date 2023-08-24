@@ -61,6 +61,7 @@
 #new:Script $Script_Idle_8024CDAC
 {
 	Call SetNpcAnimation ( .NpcID:GourmetGuy 00C10001 )
+	Call InterpNpcYaw ( .NpcID:GourmetGuy -170` 0` )
 	Loop
 	If *GourmetBossBattle == 1
 	Call StartBossBattle ( .Song:FinalBowserBattle )
@@ -74,7 +75,16 @@
 #new:Script $Script_Interact_8024CE80
 {
 	Call DisablePlayerInput ( .True )
+	If *Flag_Question_Number == 1
+		If  *Flag_Talked_Gourmet == 0
+			Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetWelcome )
+		Set	*Flag_Talked_Gourmet 1
+		Else
+			Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyNotHere )
+		EndIf
+	Else
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyNotHere )
+	EndIf
 	Call DisablePlayerInput ( .False )
 	Return
 	End
@@ -90,25 +100,35 @@
     Switch *Flag_Question_Number
     Case == 1
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ1 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q1Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 3
+	Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
         Call GotoMap ( "gv_01" 0 )
 	EndIf
     
 Case == 2
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ2 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( 001E0004 )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 0
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect2 )
     Call GotoMap ( "gv_01" 0 )
 	Else
+		Call PlaySound ( 008D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
@@ -116,26 +136,36 @@ Case == 2
 	
 Case == 3
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ3 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q3Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 1
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     	Add *Flag_Question_Number 1
         Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
         Call GotoMap ( "gv_01" 0 )
 	EndIf
 
 Case == 4
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ4 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q4Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 2
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
         Call GotoMap ( "gv_01" 0 )
 	EndIf
@@ -149,51 +179,71 @@ Case == 5
 	Call SetMessageValue ( *Var[3] 0)
 	Call SetMessageValue ( *Var[4] 1)
 	Call SetMessageValue ( *Var[5] 2)
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q5Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 0
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
 	Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
 Call GotoMap ( "gv_01" 0 )
 	EndIf
 
 Case == 6
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ6 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q6Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 2
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect )
         Call GotoMap ( "gv_01" 0 )
 	EndIf
 Case == 7
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ7 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q7Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 1
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect3 )
         Call GotoMap ("gv_01" 0 )
 	EndIf
 	
 Case == 8
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ8 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q8Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
 	If *Var[0] == 1
+		Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect )
     Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
 	Else
+		Call PlaySound ( 008B )
+		Call PlaySound ( 021D )
 		Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyIncorrect4 )
         Call GotoMap ( "gv_01" 0 )
 		Call DisablePlayerInput ( .False )
@@ -201,8 +251,11 @@ Case == 8
 
 Case == 9
 	Call  SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyQ9 )
+	Call PlaySound ( 008E )
 	Call ShowChoice ( $Q9Choice )
 	Call CloseMessage ()
+	Call StopSound ( 008E )
+	Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyCorrect2 )
 	Add *Flag_Question_Number 1
     Call GotoMap ( "spc_03" 0 )
@@ -220,6 +273,7 @@ Case == 10`
 	Call BringPartnerOut ( .Partner:Goombario )
     Set *GourmetBossBattle 1
 	Wait 120`
+	Call PlaySound ( 008D )
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward )
 	Wait 120`
 	Call SpeakToPlayer ( .NpcID:GourmetGuy 00C10004 00C10001 00000005 $GourmetGuyReward2 )
@@ -505,4 +559,11 @@ idiot[br]
 [Style Right]This is a quiz![br]
 You have to talk to me from over [br]
 there![br]
+[wait][end]}
+
+#new:String $GourmetWelcome
+{
+[Style Right]Welcome to the quiz Mario![br]
+To get started, talk to me from[br]
+behind the podium![br]
 [wait][end]}

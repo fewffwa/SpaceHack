@@ -1,1 +1,2 @@
 000 = GourmetBossBattle = GourmetBossBattle
+001 = Flag_Talked_Gourmet = Flag_Talked_Gourmet
