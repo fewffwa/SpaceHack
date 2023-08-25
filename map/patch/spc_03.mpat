@@ -7,11 +7,15 @@
     Call  SetCamLeadPlayer   ( .Cam:Default .False )
     Exec  $Script_SetupMusic
     Exec  $Script_EnterMap
+	Call DisablePlayerInput ( .False )
 	Bind $Script_Lectern .Trigger:WallPressA ~Collider:LecternCollider 0 1
 	If *Flag_Question_Number == 3
 	Bind $BushPersonScript .Trigger:WallPressA ~Collider:BushPersonCollider 0 1
 	EndIf
-	Call DisablePlayerInput ( .False )
+	If *Flag_Talked_Bush == 1
+	Call  EnableModel ( ~Model:BushPerson .False )
+	Call ModifyColliderFlags ( 0 ~Collider:BushPersonCollider 00010000  )
+	EndIf
 	Call PlayEffect ( 4E 0 3 1 0 )
     Call MakeNpcs ( .True $NpcGroupList_8025136C )
     Return
@@ -53,11 +57,17 @@
 {
 	Call DisablePlayerInput ( .True )
 	Call SpeakToPlayer ( .Npc:Player 0 0 0 $String_BushPerson )
-	Call DisablePlayerInput ( .False )
-   28:  Return
-   30:  End
+	Set  *Flag_Talked_Bush  1 
+	Call GotoMap ( "spc_03" 0 )
+	Return
+ 	End
 }
-
+#new:Script $DisableInputWorkAround
+{
+	Call DisablePlayerInput ( .False )
+	Return
+	End
+}
 #new:Script $Script_Idle_8024CDAC
 {
 	Call SetNpcAnimation ( .NpcID:GourmetGuy 00C10001 )

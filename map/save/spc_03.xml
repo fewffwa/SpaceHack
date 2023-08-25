@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="spc_03" author="unnamed" background="hos_bg" textures="hos_tex">
 	<Editor>
-		<Camera pos="0.000000,134.036804,442.567749" pitch="10.000000" yaw="0.000000"/>
-		<Camera pos="27.707447,65536.000000,94.175613"/>
-		<Camera pos="65536.000000,-1554.547363,352.462921"/>
-		<Camera pos="-61.500378,-184.688690,65536.000000"/>
+		<Camera pos="0.000000,-6.270199,240.000000" pitch="8.000000" yaw="0.000000"/>
+		<Camera pos="0.000000,65536.000000,0.000000"/>
+		<Camera pos="65536.000000,-40.000000,0.000000"/>
+		<Camera pos="0.000000,-40.000000,65536.000000"/>
 	</Editor>
 	<ModelTree>
-		<Node name="Root" id="9">
+		<Node name="Root" id="A">
 			<Node name="Stage" id="2">
 				<Node name="main_floor" id="0"/>
 				<Node name="main_edges" id="1"/>
@@ -17,7 +17,9 @@
 			<Node name="Exit_South" id="5"/>
 			<Node name="Exit_West" id="6"/>
 			<Node name="Realbush" id="7"/>
-			<Node name="BushPerson" id="8"/>
+			<Node name="BushPerson" id="9">
+				<Node name="BushPerson" id="8"/>
+			</Node>
 		</Node>
 	</ModelTree>
 	<ColliderTree>
@@ -67,9 +69,17 @@
 	</LightSets>
 	<Models>
 		<Model ver="2" type="ROOT" lightset="0">
-			<MapObject name="Root" id="9"/>
+			<MapObject name="Root" id="A"/>
 			<BoundingBox empty="false" min="-600,-100,-600" max="600,19,600"/>
 			<PropertyList>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="GROUP" lightset="0">
+			<MapObject name="BushPerson" id="9"/>
+			<BoundingBox empty="false" min="-142,-2,195" max="-74,19,195"/>
+			<PropertyList>
+				<Property v="60,0,0"/>
+				<Property v="60,0,1"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
