@@ -85,7 +85,7 @@ Call GotoMap ( "spc_03" 0 )
 #new:String $GourmetGuyString
 {
 	[Style Right]Hello and welcome to the [br]
-	only-ual 1000000 Iq Cosmic-Brain[br]
+	only-ual 1000000 IQ Cosmic-Brain[br]
 	quiz![br][wait][next]
 	I'm your host[pause 3].[pause 3].[pause 3].[pause 3] Gourmet Guy!!![br][wait][next]
 	Answer these 10 questions[br]

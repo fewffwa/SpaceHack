@@ -408,7 +408,7 @@ so... correct!!![wait][end]
 
 #new:String $GourmetGuyIncorrect2
 {
-[Style Right]Wrong! Nobody likes math you nerd.[br]
+[Style Right]Wrong! Nobody likes math you [br]nerd.
 Goodbye.[wait][end]}
 
  #new:String $GourmetGuyIncorrect3
@@ -513,7 +513,7 @@ idiot[br]
 	ORI t2, r0, 02
 	ORI t3, r0, F4
 	ORI t4, r0, 14
-	ORI t5, r0, 28
+	ORI t5, r0, 05
 	ORI t6, r0, 15
 	ORI t7, r0, 7
 	
@@ -556,6 +556,10 @@ idiot[br]
 	SB t4 0009 (t0) %Level 20
 	SB t7 0290 (t0) 
 	SB t7 028E (t0) %star power
+
+	SB t7 0002 (t0) 
+	SB t7 0003 (t0) 
+	SB t7 0004 (t0) %5 HP
 	
 	
 	
